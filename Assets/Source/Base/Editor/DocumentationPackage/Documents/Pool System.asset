@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Pool System
+  m_EditorClassIdentifier: 
+  moduleName: Pool  System
+  shortDescription: 'The Pool System implements the Pool Pattern, which is one of
+    the most commonly used design patterns in game development. In this system, a
+    pool is defined before the scene is started and the objects are inactive on the
+    scene. Then, when an object is needed in the game, it is called from the pool
+    and used. This helps reduce the burden on the processor of constantly creating
+    and destroying objects that will be used more than once. It is a pattern used
+    for objects that are very similar to each other in the scene, such as obstacles
+    on the road, gun bullets, or objects to be collected.
+
+'
+  fullDescription: 'The Pool System implements the Pool Pattern, which is one of
+    the most commonly used design patterns in game development. In this system, a
+    pool is defined before the scene is started and the objects are inactive on the
+    scene. Then, when an object is needed in the game, it is called from the pool
+    and used. This helps reduce the burden on the processor of constantly creating
+    and destroying objects that will be used more than once. It is a pattern used
+    for objects that are very similar to each other in the scene, such as obstacles
+    on the road, gun bullets, or objects to be collected.
+
+    You can access existing
+    object pools by opening the Pools object in the scene hierarchy. The Multiple
+    Pool Model contains more than one pool as a child object. It manages the pool
+    objects that are inserted into it and keeps the index information of each added
+    pool under the Multiple Pool Model object. When an object is called from within
+    the pool, it is called as _multiplePoolModel.GetDeactiveItem<ObjectType>(poolIndexi).
+    There are also functions for calling random objects.
+
+
+
+    {0}
+
+
+    To create
+    a pool, you can create a GameObject under the pool object in the scene and add
+    the Multiple Pool Model component to this object. Later, you can add desired
+    pools as children to this object. The purpose of the Multiple Pool Model class
+    is to separate pools by object type. For example, you can call different obstacle/Prop
+    types from the Multiple Pool in the code by giving the id information of the
+    pool. By throwing the prop elements in the scene into PropPools and the obstacle
+    pools into Obstacle Pools, you can easily manage the different types of pools.
+
+
+
+    {2}'
+  subPages:
+  - {fileID: 11400000, guid: 11914309f13858945a8c5747f7b6d08c, type: 2}
+  - {fileID: 11400000, guid: a66d62f8e80c73545a8ae332cbe4984c, type: 2}
+  images:
+  - {fileID: 2800000, guid: 3b2e8162797a5384794d7a73f1400206, type: 3}
+  - {fileID: 2800000, guid: b33ed2be16b6d4ec09fa0a6daa7f3fc4, type: 3}

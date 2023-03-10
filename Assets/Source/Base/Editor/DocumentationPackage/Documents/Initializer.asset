@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Initializer
+  m_EditorClassIdentifier: 
+  moduleName: Initializer
+  shortDescription: The 'Initializer' class allows us to manage the 'default execution
+    order' definition in Unity using a different perspective. When Unity is started,
+    its self-defined 'Event Functions' are executed in an order that may differ from
+    device to device if not defined manually. This can cause reference drops if the
+    order of the working class changes first in the dependencies established between
+    classes.
+  fullDescription: 'The ''Initializer'' class allows us to manage the ''default execution
+    order'' definition in Unity using a different perspective. When Unity is started,
+    its self-defined ''Event Functions'' are executed in an order that may differ
+    from device to device if not defined manually. This can cause reference drops
+    if the order of the working class changes first in the dependencies established
+    between classes.
+
+    The ''Initializer'' class solves this problem by using
+    the ''Initialize'' method of the ''IInitializable'' interface. The user sorts
+    the classes derived from the ''IInitializable'' class in the scene and for which
+    the ''Initialize'' operation is requested, into the component as desired, and
+    the ''Initializer'' class initializes these classes at once when the scene is
+    loaded. The ''InitializeOnAwake'' option should be left on to ''initialize''
+    the items added to the list, respectively, within the ''Awake'' function. It
+    is recommended that this option not be turned off except in special circumstances.
+
+'
+  subPages:
+  - {fileID: 11400000, guid: efa36006bebdd0f45b3305653eafd30a, type: 2}
+  images: []

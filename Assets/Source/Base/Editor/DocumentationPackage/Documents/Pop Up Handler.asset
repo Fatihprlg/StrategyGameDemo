@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Pop Up Handler
+  m_EditorClassIdentifier: 
+  moduleName: Pop Up Handler
+  shortDescription: The 'Pop Up Handler' class manages the 'Pop Up View Model' and
+    produces 'Pop Up' screens according to the given title, text, and button values.
+    To use it, an object containing a 'Pop Up Handler' component is created on the
+    scene, and a 'Pop Up View Model' is created under a 'Canvas,' and a 'Pop Up Screen'
+    containing the necessary features is added under it (available by default in
+    the 'Main Scene').
+  fullDescription: 'The ''Pop Up Handler'' class manages the ''Pop Up View Model''
+    and produces ''Pop Up'' screens according to the given title, text, and button
+    values. To use it, an object containing a ''Pop Up Handler'' component is created
+    on the scene, and a ''Pop Up View Model'' is created under a ''Canvas,'' and
+    a ''Pop Up Screen'' containing the necessary features is added under it (available
+    by default in the ''Main Scene''). Then, the ''Singleton'' ''Pop Up Handler''
+    class can be used to call this screen from within the code. The ''ShowPopUp''
+    function can be used to call a ''pop up'' in the classroom, and the ''HidePopUp''
+    function can be used to hide the ''Pop Up'' screens displayed on the screen.
+    If multiple ''Pop Up'' screens are summoned in a row without hiding the previous
+    one, the ''Handler'' will throw these ''pop ups'' into a queue structure and
+    will open one after the other as the ''pop up'' on the screen is hidden. The
+    ''Pop Up Handler'' class also provides an option to add a callback function that
+    will be called when the user clicks on a button in the ''pop up'' screen.
+
+    In
+    the ''Pop Up Screen'' object, there are two ''Pop Up'' button objects. These
+    buttons are used to execute the callback functions added to the ''Pop Up Handler''
+    class when clicked. When adding a new ''pop up'' screen, the button names should
+    be changed according to the desired button texts, and the ''ButtonAction'' event
+    of the ''ButtonComponent'' script on the button should be assigned to the corresponding
+    callback function.In the editor window, you can see the list of ''pop up'' screens
+    that have been created, and you can delete or edit them as desired. You can also
+    create a new ''pop up'' screen by clicking the ''Create New Pop Up'' button and
+    filling in the necessary information, such as the title, text, and button texts,
+    and assigning the callback functions.
+
+'
+  subPages: []
+  images: []

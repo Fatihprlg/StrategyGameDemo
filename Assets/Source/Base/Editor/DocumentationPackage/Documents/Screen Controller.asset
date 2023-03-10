@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Screen Controller
+  m_EditorClassIdentifier: 
+  moduleName: Screen Controller
+  shortDescription: 'The ''Screen Controller'' class manages a ''boolean'' value
+    named ''autoChangeScreen'' to trigger the list of screens, the active screen,
+    and automatic switching of screens. If this ''boolean'' value is selected from
+    the editor, a method involving screen changes is added to the ''onStateChange''
+    events of the ''game controller'' element. This way, the appropriate screen is
+    automatically loaded at each state change.
+
+'
+  fullDescription: "The 'Screen Controller' class manages a 'boolean' value named
+    'autoChangeScreen' to trigger the list of screens, the active screen, and automatic
+    switching of screens. If this 'boolean' value is selected from the editor, a
+    method involving screen changes is added to the 'onStateChange' events of the
+    'game controller' element. This way, the appropriate screen is automatically
+    loaded at each state change.\nThe 'MainScreenIndex' value in the editor shows
+    the first screen that will open when the game starts. The screens are rotated
+    sequentially from this index. The screens before the main index are the screens
+    that will be shown in certain situations and are constantly active, such as the
+    Tutorial or PopUp screens.\nThe screens available by default are:\n\tMain Screen:
+    It is the main menu of the game. In the 'upgrade screen', player money, department
+    information, and other information are available. Player money and episode information
+    are automatically retrieved from the 'Player Data Model' object.\n\tGame Screen:
+    It is the screen that appears while playing the game. Player money and chapter
+    information are also displayed here and adjusted automatically.\n\tEnd Screen:
+    It is the section end screen. If the player successfully completed the level,
+    it will show the 'Win Screen', otherwise it will trigger the 'Lose Screen' element.\n\tTutorial
+    Screen: It is the screen element that contains the tutorials added to the game.
+    It stays blank if no training is added."
+  subPages:
+  - {fileID: 11400000, guid: b25660341d4e2da43a1e8def74da2453, type: 2}
+  images: []

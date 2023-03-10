@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: PostProcessor
+  m_EditorClassIdentifier: 
+  moduleName: Post Processor
+  shortDescription: 'Post processing is a commonly used technique in Unity to apply
+    visual effects and make adjustments to the image by giving some effects to the
+    camera. The ''PostProcessor'' module includes two pre-made image profiles designed
+    for this purpose, which can be easily changed via the editor. It provides a standard
+    and simple image profile, called ''Classic'', and a more advanced profile, called
+    ''Contrast'', which includes more color settings and effects. '
+  fullDescription: 'Post processing is a commonly used technique in Unity to apply
+    visual effects and make adjustments to the image by giving some effects to the
+    camera. The ''PostProcessor'' module includes two pre-made image profiles designed
+    for this purpose, which can be easily changed via the editor. It provides a standard
+    and simple image profile, called ''Classic'', and a more advanced profile, called
+    ''Contrast'', which includes more color settings and effects. To select one of
+    these profiles, simply press the corresponding button in the editor. The ''PostProcessor''
+    module automatically inserts the selected profile into the ''volume''. Additionally,
+    custom profiles can be added to the ''volume'', which will automatically appear
+    as a new button in the editor.
+
+    When adjusting the profile, different images
+    can be obtained by changing the ''lookup texture'' (LUT) picture in the ''Color
+    Lookup'' section. The LUT is used as the ''Color Correction LUT'', which is a
+    texture used to perform color grading in a post-processing effect. Instead of
+    manipulating individual color channels via curves, as with color correction curves,
+    only a single texture is used to produce the corrected image. The appropriate
+    image can be obtained by using the textures located under the ''Assets/Base/PostProcess/Resources/LUT''
+    folder in the project.
+
+
+
+    {0}
+
+'
+  subPages: []
+  images:
+  - {fileID: 2800000, guid: da175660522ac4dc3b3970d201329903, type: 3}

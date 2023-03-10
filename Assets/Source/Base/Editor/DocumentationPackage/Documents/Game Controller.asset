@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Game Controller
+  m_EditorClassIdentifier: 
+  moduleName: Game Controller
+  shortDescription: 'The ''Game Controller'' element controls the flow of the game
+    and is essentially inspired by the ''state'' design pattern. It runs the ''update''
+    functions of all controllers in the scene, taking into account the specified
+    order and the state of the game. It also manages in-game state changes and events
+    that occur during these changes.
+
+'
+  fullDescription: 'The ''Game Controller'' element controls the flow of the game
+    and is essentially inspired by the ''state'' design pattern. It runs the ''update''
+    functions of all controllers in the scene, taking into account the specified
+    order and the state of the game. It also manages in-game state changes and events
+    that occur during these changes. The controllers that the ''Game Controller''
+    component wants to run are dragged and dropped onto the ''Game Controller'' component
+    via the editor. If you want the controller to automatically map and call all
+    controllers in the scene, you can check the ''autoMapControllers'' box in the
+    editor window. In this way, the ''Game Controller'' will display all classes
+    on the stage that are created by inheriting from the ''Controller Base'' class.
+
+
+    {0}
+
+
+    The
+    functions that are defined in the ''Controller Base'' class will be mapped and
+    managed by the ''Game Controller''. Since the ''Game Controller'' works like
+    a ''State Machine'', it sends the ''Current State'' variable as a parameter to
+    the functions to be used and allows the functions to perform the desired operations
+    in desired situations.
+
+    To add events during state changes, you can add them
+    to the ''onStateChange'' events in the ''Game Controller'' component. The method
+    to be added here must take a parameter from the ''Game States'' enum. This information
+    can be used to run the code if the desired state is reached during state change.
+
+
+
+    {1}
+
+
+    To
+    change game states, you should use the ChangeState method from the object of
+    the ''Game Controller'' element (_gameController.ChangeState(GameStates state)).
+
+    Statuses
+    included in ''Game States'':
+
+    Main: Showing the main screen before the player
+    starts playing the game. In this case, the main menu, development buttons, training,
+    etc. could be included.
+
+    Game: The state in which the game is played. All
+    processes running in the game, such as ''movement'' and ''path follow'', occur
+    in this case.
+
+    End: It is the end screen of the game. This situation is again
+    in the ''Game Controller'', and it can be called with the EndState() function.
+    This method takes the ''isPlayerWin'' parameter whether the player has successfully
+    completed the level and displays the appropriate ''Win Screen'' or ''Lose Screen''
+    on the screen.
+
+'
+  subPages: []
+  images:
+  - {fileID: 2800000, guid: c80e39c3daf55425385b1830fa0f4bbe, type: 3}
+  - {fileID: 2800000, guid: b083676a941df4bd0b7a4151a2a1d834, type: 3}

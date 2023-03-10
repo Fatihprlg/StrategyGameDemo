@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Camera Controller
+  m_EditorClassIdentifier: 
+  moduleName: Camera Controller
+  shortDescription: ' The Camera Controller holds the Main Camera and all other virtual
+    camera elements in the scene under the Setup object on the scene. To switch between
+    cameras, you can call the ChangeCamera(int cameraIndex) method of the Camera
+    Controller class.'
+  fullDescription: ' The Camera Controller holds the Main Camera and all other virtual
+    camera elements in the scene under the Setup object on the scene. To switch between
+    cameras, you can call the ChangeCamera(int cameraIndex) method of the Camera
+    Controller class.
+
+    Scene Controller: The Scene Controller manages scene transitions
+    and refresh operations. It shows the loading screen while loading scenes asynchronously.
+    It is a singleton object that can be used between scenes, allowing you to access
+    the desired section and perform scene transitions.
+
+'
+  subPages: []
+  images: []

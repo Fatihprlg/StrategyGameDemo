@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
+  m_Name: Inversion Of Control
+  m_EditorClassIdentifier: 
+  moduleName: Inversion Of Control (IoC)
+  shortDescription: "Inversion of Control (IoC) is a design pattern used to manage
+    dependencies in software \narchitecture, including game development. In Unity,
+    it is adapted to the MonoBehaviour class structure and consists of a container
+    that injects dependency, a builder struct that pulls and forwards dependencies
+    in the scene, and a context struct that controls the builders.\n"
+  fullDescription: 'The IoC structure uses a dictionary to keep dependencies and
+    places them where needed. This module is the coded version of the IoC structure
+    by integrating it into the Unity system. It automatically takes all ''MonoBase''
+    classes in the scene and stores them in a dictionary. Instead of creating any
+    dependency, the user qualifies this dependency as ''[Dependency]'' and attaches
+    the object instance of this dependency to that field as the IoC falls.
+
+    To
+    use this feature, the user needs to add the ''Context'' object and the ''Builder''
+    object to the scene. After this step, the builder automatically defines and stores
+    the ''MonoBase'' classes on the stage every time it ''recompiles''. The fields
+    that the user wants to ''inject'' in the code must be qualified as ''[Dependency]''.
+    To initialize the code or before using the dependency, the user can call the
+    ''extension'' method this.Inject(). If there is more than one instance of an
+    object in a scene and the user wants to get a specific one, he can get the reference
+    of the object instance he wants in the form of ''[Dependency("Game Object Name")]''.
+
+
+
+    {0}
+
+
+    Create
+    a context and builder in scene for use it.
+
+
+    {1}
+
+
+    After this step, you
+    need to add the [Dependency] attribute next to the files and properties you want
+    to inject in the code. After this step, where you initialize the code or before
+    using the dependency this.Inject(); Calling the extension method will suffice.
+
+
+    {2}
+
+
+
+    {3}
+
+
+'
+  subPages: []
+  images:
+  - {fileID: 2800000, guid: 4a95ad2d33b804f859a634dc69ccef86, type: 3}
+  - {fileID: 2800000, guid: 0816c1a2efd87432a9939cd196685e70, type: 3}
+  - {fileID: 2800000, guid: 092e7c1cb355c45478bb091b01ea939e, type: 3}
+  - {fileID: 2800000, guid: 8f3fb1dc17eae4418ac72fee95d47ad3, type: 3}
