@@ -9,7 +9,6 @@ public class LevelEditor : EditorWindow
     private int editorLevelIndex;
     private Object levels;
     private SerializedObject serializedObject;
-    private LevelAdapter levelAdapter;
     private LevelList levelModels;
     private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext;
     private void OnEnable()
@@ -106,28 +105,13 @@ public class LevelEditor : EditorWindow
             item.SetActiveGameObject(true);
         }
     }
-
-    private static void ActivateWorldObjects(WorldItemDataModel[] items)
-    {
-        var worldItems = FindObjectsOfType<WorldItemModel>(true);
-        for (int i = 0; i < items.Length; i++)
-        {
-            WorldItemDataModel itemData = items[i];
-            WorldItemModel item = worldItems.FirstOrDefault(a => a.id == items[i].Id);
-            item.SetValues(itemData);
-            item.SetActiveGameObject(true);
-        }
-    }
     
     private static void SaveAll(LevelModel lvlModel)
     {
         var poolItems = FindObjectsOfType<PoolItemModel>();
-        var worldItems = FindObjectsOfType<WorldItemModel>();
 
         var poolItemDatas = poolItems.Select(poolItemModel => poolItemModel.GetData()).ToList();
-        var worldItemDatas = worldItems.Select(worldItemModel => worldItemModel.GetData()).ToList();
         lvlModel.poolItems = poolItemDatas;
-        lvlModel.worldItems = worldItemDatas;
     }
     
     private void SaveWorldItems(LevelModel level, string path, bool _override = false)
@@ -174,7 +158,6 @@ public class LevelEditor : EditorWindow
         }
         ClearScene();
         ActivatePoolObjects(activeLevel.poolItems.ToArray());
-        ActivateWorldObjects(activeLevel.worldItems.ToArray());
     }
 
     private void SaveLevel()

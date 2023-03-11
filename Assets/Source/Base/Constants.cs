@@ -16,4 +16,11 @@ namespace Constants
         public const string NOT_WALKABLE_AREA_COLOR = "#EC953E";
         public const string WALKABLE_AREA_COLOR = "#7AE885";
     }
+
+    public static class Numerical
+    {
+        public const int PIXEL_PER_UNIT = 100;
+        public const int CELL_HEIGHT_AS_PIXEL = 32;
+        public const float CELL_SCALE_AS_UNIT = (float)CELL_HEIGHT_AS_PIXEL / (float)PIXEL_PER_UNIT;
+    }
 }

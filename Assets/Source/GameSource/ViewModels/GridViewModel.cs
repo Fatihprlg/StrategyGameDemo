@@ -9,7 +9,6 @@ public class GridViewModel : MonoBehaviour
     [SerializeField] private Texture2D WalkableRef;
     [SerializeField] private Texture2D NonWalkableRef;
     private CellModel[,] currentGrid;
-    private CellViewModel[,] cellViews;
     
     public void InitializeGridView(CellModel[,] grid)
     {
@@ -17,17 +16,6 @@ public class GridViewModel : MonoBehaviour
         int xLen = grid.GetLength(0);
         int yLen = grid.GetLength(1);
         gridView.sprite = createTexture(grid);
-        /*cellViews = new CellViewModel[xLen, yLen];
-        for (int i = 0; i < xLen; i++)
-        {
-            for (int j = 0; j < yLen; j++)
-            {
-                CellViewModel cellView = cellViewPool.GetDeactiveItem<CellViewModel>();
-                cellView.SetCellView(grid[i,j]);
-                cellViews[i, j] = cellView;
-                cellView.SetActiveGameObject(true);
-            }
-        }*/
     }
     private Sprite createTexture(CellModel[,] grid)
     {
@@ -65,7 +53,7 @@ public class GridViewModel : MonoBehaviour
         UnityEditor.AssetDatabase.Refresh();
 #endif
     }
-    public void ConstructionState()
+    /*public void ConstructionState()
     {
         foreach (CellViewModel cellViewModel in cellViews)
         {
@@ -84,5 +72,5 @@ public class GridViewModel : MonoBehaviour
     public void SetCellViewConstructionStateColor(int xPos, int yPos, bool isAvailable)
     {
         cellViews[xPos, yPos].ChangeMaskColor(isAvailable);
-    }
+    }*/
 }

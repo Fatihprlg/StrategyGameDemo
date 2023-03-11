@@ -19,7 +19,6 @@ public class LevelAdapter : MonoBehaviour, IInitializable
         ClearScene();
         
         ActivatePoolObjects(level.poolItems.ToArray());
-        ActivateWorldObjects(level.worldItems.ToArray());
 
     }
 

@@ -1,5 +1,17 @@
+using UnityEngine;
+
 public static class GridHelper
 {
+
+    public static Vector3 GetCellWorldPosition(int x, int y)
+    {
+        Vector3 worldPos = new ()
+        {
+            x = Constants.Numerical.CELL_SCALE_AS_UNIT * x,
+            y = Constants.Numerical.CELL_SCALE_AS_UNIT * y
+        };
+        return worldPos;
+    }
     
     public static CellModel[,] CreateGrid(int xLength, int Length)
     {

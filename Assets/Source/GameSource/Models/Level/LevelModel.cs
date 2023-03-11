@@ -7,6 +7,6 @@ public class LevelModel
 {
     public int index;
     public string name;
+    public CellModel[,] grid;
     public List<PoolItemDataModel> poolItems;
-    public List<WorldItemDataModel> worldItems;
 }
