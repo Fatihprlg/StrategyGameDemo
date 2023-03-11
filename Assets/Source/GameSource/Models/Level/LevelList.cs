@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LevelList : Object
+public class LevelList
 {
     public List<LevelModel> list;
 }

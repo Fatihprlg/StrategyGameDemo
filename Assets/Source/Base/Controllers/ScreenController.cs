@@ -20,8 +20,8 @@ public class ScreenController : ControllerBase
             item.Hide();
         }
 
-        currentScreen = screens[mainScreenIndex];
-        currentScreenIndex = mainScreenIndex;
+        currentScreen = screens[mainScreenIndex+1];
+        currentScreenIndex = mainScreenIndex+1;
         currentScreen.Show();
     }
 

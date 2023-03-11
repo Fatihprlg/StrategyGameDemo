@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class ItemModel<T> : MonoBehaviour
 {
     public int id;
-    public abstract void SetValues(T data);
+    public abstract void SetValues();
     public abstract T GetData();
 }
 [System.Serializable]

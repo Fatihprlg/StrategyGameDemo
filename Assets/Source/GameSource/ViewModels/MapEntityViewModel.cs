@@ -3,18 +3,18 @@ using UnityEngine;
 public class MapEntityViewModel : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer Icon;
-    [SerializeField] private SpriteRenderer healthBar;
+    [SerializeField] private Transform healthBar;
     
     public void Init(MapEntityData data)
     {
         Icon.sprite = data.visual;
-        healthBar.transform.localScale = Vector3.one;
+        healthBar.localScale = Vector3.one;
     }
 
     public void UpdateHealthBar(int percentage)
     {
-        Vector3 currentSize = healthBar.transform.localScale;
+        Vector3 currentSize = healthBar.localScale;
         currentSize.x = percentage;
-        healthBar.transform.localScale = currentSize;
+        healthBar.localScale = currentSize;
     }
 }

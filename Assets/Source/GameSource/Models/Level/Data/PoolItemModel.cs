@@ -6,32 +6,33 @@ public class PoolItemModel : ItemModel<PoolItemDataModel>
 {
     public int multiplePoolIndex;
     public int poolIndex;
-    private string guid;
-    private MapEntityData entityData;
-    public override void SetValues(PoolItemDataModel data)
+    [SerializeField] private MapEntity entityData;
+    public override void SetValues()
     {
         id = transform.GetSiblingIndex();
         multiplePoolIndex = transform.parent.parent.GetSiblingIndex();
         poolIndex = transform.parent.GetSiblingIndex();
-        transform.position = data.Position;
-        guid = entityData.Guid;
     }
     public override PoolItemDataModel GetData()
     {
+        transform.position = GridHelper.WorldToGridPosition(transform.position, entityData.Data.width, entityData.Data.height);
+        SetValues();
         PoolItemDataModel dataModel = new ()
         {
             Id = id,
             poolIndex = poolIndex,
             multiplePoolIndex = multiplePoolIndex,
             Position = transform.position,
-            guid = this.guid
+            width = entityData.Data.width,
+            height = entityData.Data.height,
+            guid = entityData.Data.Guid
         };
         return dataModel;
     }
 
     private void Reset()
     {
-        entityData = GetComponent<MapEntity>().Data;
+        entityData = GetComponent<MapEntity>();
     }
 }
 
@@ -40,6 +41,8 @@ public class PoolItemDataModel : ItemDataModel
 {
     public int multiplePoolIndex;
     public int poolIndex;
+    public int width;
+    public int height;
     public string guid;
     public Vector3 Position;
 }

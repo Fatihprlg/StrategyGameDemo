@@ -1,62 +1,32 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using UnityEngine;
 
-
-[DisallowMultipleComponent]
-public class LevelAdapter : MonoBehaviour, IInitializable
+public static class LevelAdapter
 {
-    [SerializeField] private MultiplePoolModel[] worldItemPools;
-    public void Initialize()
-    {
-        this.Inject();
-    }
-
-    public void LoadLevel(LevelModel level)
+    private static SpriteRenderer gridRenderer;
+    public static void Init(SpriteRenderer _gridRenderer) => gridRenderer = _gridRenderer;
+    public static void LoadLevel(LevelModel level)
     {
         ClearScene();
-        
+        Texture2D tex = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{level.name}.png");
+        gridRenderer.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         ActivatePoolObjects(level.poolItems.ToArray());
-
     }
-
-
-    private void ActivatePoolObjects(PoolItemDataModel[] items)
+    public static void ActivatePoolObjects(IEnumerable<PoolItemDataModel> items)
     {
-        for (int i = 0; i < items.Length; i++)
+        foreach (PoolItemDataModel itemData in items)
         {
-            PoolItemDataModel itemData = items[i];
-            PoolItemModel item = worldItemPools[items[i].multiplePoolIndex].GetDeactiveItem<PoolItemModel>(items[i].poolIndex);
-            item.SetValues(itemData);
-            item.SetActiveGameObject(true);
-        }
-    }
-
-    private static void ActivateWorldObjects(WorldItemDataModel[] items)
-    {
-        var worldItems = FindObjectsOfType<WorldItemModel>(true);
-        for (int i = 0; i < items.Length; i++)
-        {
-            WorldItemDataModel itemData = items[i];
-            WorldItemModel item = worldItems.FirstOrDefault(a => a.id == items[i].Id);
-            item.SetValues(itemData);
+            MapEntity item = EntityFactory.GetMapEntity(itemData);
             item.SetActiveGameObject(true);
         }
     }
     
     public static void ClearScene()
     {
-        var poolItems = FindObjectsOfType<PoolItemModel>();
-        var worldItems = FindObjectsOfType<WorldItemModel>();
+        var poolItems = Object.FindObjectsOfType<PoolItemModel>();
         foreach (PoolItemModel poolItemModel in poolItems)
         {
             poolItemModel.SetActiveGameObject(false);
-        }
-        foreach (WorldItemModel worldItemModel in worldItems)
-        {
-            worldItemModel.SetActiveGameObject(false);
         }
     }
 }

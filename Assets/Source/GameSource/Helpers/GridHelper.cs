@@ -3,12 +3,51 @@ using UnityEngine;
 public static class GridHelper
 {
 
+    public static Vector2 WorldToGridPosition(Vector3 worldPos)
+    {
+        if (worldPos.x < 0) worldPos.x = 0;
+        if (worldPos.y < 0) worldPos.y = 0;
+        Vector2 gridPos = new()
+        {
+            x = Mathf.FloorToInt(worldPos.x / Constants.Numerical.CELL_SCALE_AS_UNIT),
+            y = Mathf.FloorToInt(worldPos.y / Constants.Numerical.CELL_SCALE_AS_UNIT)
+        };
+        return gridPos;
+    }
+    public static Vector2 WorldToGridPosition(Vector3 worldPos, int width, int height)
+    {
+        if (worldPos.x < 0) worldPos.x = 0;
+        if (worldPos.y < 0) worldPos.y = 0;
+        
+        float xOffset = ((float)width * Constants.Numerical.CELL_SCALE_AS_UNIT / 2);
+        float yOffset = ((float)height * Constants.Numerical.CELL_SCALE_AS_UNIT / 2);
+        worldPos.x -= xOffset;
+        worldPos.y -= yOffset;
+        Vector2 gridPos = new()
+        {
+            x = Mathf.FloorToInt(worldPos.x / Constants.Numerical.CELL_SCALE_AS_UNIT),
+            y = Mathf.FloorToInt(worldPos.y / Constants.Numerical.CELL_SCALE_AS_UNIT)
+        };
+        return gridPos;
+    }
     public static Vector3 GetCellWorldPosition(int x, int y)
     {
         Vector3 worldPos = new ()
         {
             x = Constants.Numerical.CELL_SCALE_AS_UNIT * x,
             y = Constants.Numerical.CELL_SCALE_AS_UNIT * y
+        };
+        return worldPos;
+    }
+
+    public static Vector3 GetUnitWorldPosition(int x, int y, int xLen, int yLen)
+    {
+        float xOffset = ((float)xLen * Constants.Numerical.CELL_SCALE_AS_UNIT / 2);
+        float yOffset = ((float)yLen * Constants.Numerical.CELL_SCALE_AS_UNIT / 2);
+        Vector3 worldPos = new ()
+        {
+            x = (Constants.Numerical.CELL_SCALE_AS_UNIT * x) + xOffset,
+            y = (Constants.Numerical.CELL_SCALE_AS_UNIT * y) + yOffset
         };
         return worldPos;
     }
@@ -45,6 +84,8 @@ public static class GridHelper
 
         return grid;
     }
+    
+    
     
     public static bool IsValidPos(int xPos, int yPos, int xLen, int yLen)
     {

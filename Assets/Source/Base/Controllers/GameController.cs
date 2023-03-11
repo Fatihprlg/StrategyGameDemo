@@ -19,7 +19,7 @@ public class GameController : ControllerBase
     public override void Initialize()
     {
         base.Initialize();
-        _currentState = GameStates.Main;
+        _currentState = GameStates.Game;
     }
 
     public void ChangeState(GameStates state)

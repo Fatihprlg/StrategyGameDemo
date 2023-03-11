@@ -1,16 +1,25 @@
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class LevelEditor : EditorWindow
 {
-    [SerializeField] private MultiplePoolModel[] worldItemPools;
+    [SerializeField] private MultiplePoolModel entityPools;
+    [SerializeField] private Registry _registry;
     [SerializeField] private LevelModel activeLevel;
-    private int editorLevelIndex;
+    [SerializeField] private SpriteRenderer gridRenderer;
+    [SerializeField] private Texture2D WalkableRef;
+    [SerializeField] private Texture2D NonWalkableRef;
+    
+    private int editorLevelIndex, gridWidth = 32, gridHeight = 32, stepCount = 15, liveNeighboursRequired = 4;
+    private float fillPercent = .65f;
     private Object levels;
     private SerializedObject serializedObject;
     private LevelList levelModels;
-    private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext;
+    private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext, cellularAutomatonContext;
+    private int[,] currentAutomaton;
+    private Texture2D currentAutomatonTexture;
     private void OnEnable()
     {
         serializedObject = new SerializedObject(this);
@@ -39,6 +48,10 @@ public class LevelEditor : EditorWindow
         {
             text = "Reset Levels"
         };
+        cellularAutomatonContext = new GUIContent
+        {
+            text = "Create Map With CellularAutomaton"
+        };
     }
 
     [MenuItem("My Game Lib/Level Editor")]
@@ -51,14 +64,46 @@ public class LevelEditor : EditorWindow
     {
         EditorGUILayout.BeginVertical();
         EditorGUILayout.Space(10);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("worldItemPools"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(entityPools)));
         EditorGUILayout.Space(5);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("activeLevel"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_registry)));
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(activeLevel)));
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(gridRenderer)));
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(WalkableRef)));
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(NonWalkableRef)));
         EditorGUILayout.Space(10);
         serializedObject.ApplyModifiedProperties();
 
         EditorUtils.DrawUILine(Color.white);
+        gridWidth = EditorGUILayout.IntField("Grid Width ", gridWidth);
+        gridHeight = EditorGUILayout.IntField("Grid Height ", gridHeight);
+        liveNeighboursRequired = EditorGUILayout.IntField("Live Neighbours Required ", liveNeighboursRequired);
+        stepCount = EditorGUILayout.IntField("StepCount ", stepCount);
+        fillPercent = EditorGUILayout.Slider("StepCount ", fillPercent, 0, 1);
         
+        if (GUILayout.Button(cellularAutomatonContext))
+        {
+            CreateMapWithCellularAutomaton();
+        }
+
+        if (currentAutomatonTexture)
+        {
+            Rect lastRect = GUILayoutUtility.GetLastRect();
+            Rect automatonRect = new (position.width/4, lastRect.y + 40, position.width/2,
+                position.width/2);
+            Rect labelRect = automatonRect;
+            labelRect.height = 20;
+            labelRect.y -= 20;
+            EditorGUI.PrefixLabel(labelRect, new GUIContent("Preview: "));
+            EditorGUI.DrawPreviewTexture(automatonRect, currentAutomatonTexture);
+            GUILayout.Space(labelRect.height + automatonRect.height);
+        }
+        
+        EditorUtils.DrawUILine(Color.white);
         if (GUILayout.Button(saveContent))
         {
             SaveLevel();
@@ -77,7 +122,7 @@ public class LevelEditor : EditorWindow
         EditorUtils.DrawUILine(Color.white);
         if (GUILayout.Button(clearSceneContent))
         {
-            ClearScene();
+            LevelAdapter.ClearScene();
         }
         EditorUtils.DrawUILine(Color.white);
         if (GUILayout.Button(resetDataContext))
@@ -88,6 +133,28 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.EndVertical();
     }
 
+    private void CreateMapWithCellularAutomaton()
+    {
+        currentAutomaton = CellularAutomatonCreator.CreateAutomata(gridWidth, gridHeight, fillPercent, stepCount, liveNeighboursRequired);
+        int x = gridWidth;
+        int y = gridHeight;
+        const int cellHeightAsPixel = Constants.Numerical.CELL_HEIGHT_AS_PIXEL;
+        currentAutomatonTexture = new Texture2D(gridWidth * cellHeightAsPixel,
+            gridHeight * cellHeightAsPixel);
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                var pixels = currentAutomaton[i, j] == (int)CellTypes.Walkable
+                    ? WalkableRef.GetPixels()
+                    : NonWalkableRef.GetPixels();
+                currentAutomatonTexture.SetPixels(i * cellHeightAsPixel, j * cellHeightAsPixel, cellHeightAsPixel, cellHeightAsPixel, pixels);
+            }
+        }
+        currentAutomatonTexture.Apply();
+        gridRenderer.sprite = Sprite.Create(currentAutomatonTexture, new Rect(0, 0, currentAutomatonTexture.width, currentAutomatonTexture.height), Vector2.zero);;
+    }
+
     private void ResetLevelsData()
     {
         levelModels.list.Clear();
@@ -95,28 +162,16 @@ public class LevelEditor : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-    private void ActivatePoolObjects(PoolItemDataModel[] items)
-    {
-        for (int i = 0; i < items.Length; i++)
-        {
-            PoolItemDataModel itemData = items[i];
-            PoolItemModel item = worldItemPools[items[i].multiplePoolIndex].GetDeactiveItem<PoolItemModel>(items[i].poolIndex);
-            item.SetValues(itemData);
-            item.SetActiveGameObject(true);
-        }
-    }
     
     private static void SaveAll(LevelModel lvlModel)
     {
         var poolItems = FindObjectsOfType<PoolItemModel>();
-
         var poolItemDatas = poolItems.Select(poolItemModel => poolItemModel.GetData()).ToList();
         lvlModel.poolItems = poolItemDatas;
     }
     
     private void SaveWorldItems(LevelModel level, string path, bool _override = false)
     {
-        Undo.RecordObjects(new []{levels, levelModels}, "SaveWorldItems");
         SaveAll(level);
         if (_override)
         {
@@ -133,19 +188,7 @@ public class LevelEditor : EditorWindow
     {
         levelModels = JsonHelper.LoadJson<LevelList>(levels.ToString());
     }
-    private static void ClearScene()
-    {
-        var poolItems = FindObjectsOfType<PoolItemModel>();
-        var worldItems = FindObjectsOfType<WorldItemModel>();
-        foreach (PoolItemModel poolItemModel in poolItems)
-        {
-            poolItemModel.SetActiveGameObject(false);
-        }
-        foreach (WorldItemModel worldItemModel in worldItems)
-        {
-            worldItemModel.SetActiveGameObject(false);
-        }
-    }
+    
     private void LoadLevel(int levelIndex)
     {
         if (levelModels == null || levelModels.list.Count == 0) DeserializeLevels();
@@ -156,22 +199,26 @@ public class LevelEditor : EditorWindow
             Debug.LogError($"There is no level with given index {levelIndex}");
             return;
         }
-        ClearScene();
-        ActivatePoolObjects(activeLevel.poolItems.ToArray());
+        LevelAdapter.Init(gridRenderer);
+        EntityFactory.SetRegistry(_registry);
+        EntityFactory.SetEntityPools(entityPools);
+        LevelAdapter.LoadLevel(activeLevel);
     }
-
+    
     private void SaveLevel()
     {
         DeserializeLevels();
         LevelModel level = new()
         {
             name = $"Level {levelModels.list.Count}",
-            index = levelModels.list.Count
+            index = levelModels.list.Count,
+            grid = currentAutomaton
         };
+        Helpers.Other.SaveTexture(currentAutomatonTexture, Constants.Strings.RENDERED_TEXTURES_PATH, level.name);
 
         SaveWorldItems(level, Constants.Strings.LEVELS_PATH);
         GetLevels();
-        ClearScene();
+        LevelAdapter.ClearScene();
     }
 
     private void GetLevels()
@@ -183,6 +230,10 @@ public class LevelEditor : EditorWindow
     private void OverrideLevel()
     {
         if (levelModels == null) DeserializeLevels();
+        if(currentAutomatonTexture)
+            Helpers.Other.SaveTexture(currentAutomatonTexture, Constants.Strings.RENDERED_TEXTURES_PATH, activeLevel.name);
+        if (currentAutomaton is { Length: > 0 })
+            activeLevel.grid = currentAutomaton;
         SaveWorldItems(activeLevel, Constants.Strings.LEVELS_PATH, true);
     }
 

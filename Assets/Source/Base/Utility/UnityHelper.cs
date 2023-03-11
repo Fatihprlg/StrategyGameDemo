@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Helpers
 {
@@ -1250,4 +1251,37 @@ namespace Helpers
         }
     }
 
+
+    public static class Other
+    {
+        public static void SaveTexture(Texture2D texture, string path = "/TextureOutputs", string name = "TextureOutput")
+        {
+            byte[] bytes = texture.EncodeToPNG();
+            var dirPath = Application.dataPath + path;
+            if (!System.IO.Directory.Exists(dirPath))
+            {
+                System.IO.Directory.CreateDirectory(dirPath);
+            }
+
+            if (System.IO.File.Exists(dirPath + "/" + name))
+                name += Random.Range(0, 100000).ToString();
+            System.IO.File.WriteAllBytes(dirPath + "/" + name + ".png", bytes);
+            Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + dirPath);
+#if UNITY_EDITOR
+            UnityEditor.AssetDatabase.Refresh();
+#endif
+        }
+        
+        public static Texture2D LoadTexture(string path)
+        {
+            var dirPath = Application.dataPath + path;
+            if (!System.IO.File.Exists(dirPath)) throw new FileNotFoundException($"Texture can not found in {dirPath}");
+            Texture2D tex = new (1, 1);
+            var bytes = File.ReadAllBytes(dirPath);
+            tex.LoadImage(bytes);
+            return tex;
+        }
+    }
+    
+   
 }

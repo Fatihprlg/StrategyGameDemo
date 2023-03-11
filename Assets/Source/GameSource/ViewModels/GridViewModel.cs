@@ -3,26 +3,23 @@ using UnityEngine;
 
 public class GridViewModel : MonoBehaviour
 {
-    [SerializeField] private PoolModel cellViewPool;
     [SerializeField] private SpriteRenderer gridView;
+    [SerializeField] private SpriteRenderer constructionView;
     
     [SerializeField] private Texture2D WalkableRef;
     [SerializeField] private Texture2D NonWalkableRef;
-    private CellModel[,] currentGrid;
+    
     
     public void InitializeGridView(CellModel[,] grid)
     {
-        currentGrid = grid;
-        int xLen = grid.GetLength(0);
-        int yLen = grid.GetLength(1);
-        gridView.sprite = createTexture(grid);
+        gridView.sprite = CreateTexture(grid);
     }
-    private Sprite createTexture(CellModel[,] grid)
+    private Sprite CreateTexture(CellModel[,] grid)
     {
         int x = grid.GetLength(0);
         int y = grid.GetLength(1);
         
-        Texture2D tex = new (x * 32, y * 32);
+        Texture2D tex = new (x * Constants.Numerical.CELL_HEIGHT_AS_PIXEL, y * Constants.Numerical.CELL_HEIGHT_AS_PIXEL);
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
@@ -35,42 +32,17 @@ public class GridViewModel : MonoBehaviour
         }
 
         tex.Apply();
-        SaveTexture(tex);
         Sprite sp = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
         return sp;
     }
-    private void SaveTexture(Texture2D texture)
+    
+    public void ConstructionState()
     {
-        byte[] bytes = texture.EncodeToPNG();
-        var dirPath = Application.dataPath + "/RenderOutput";
-        if (!System.IO.Directory.Exists(dirPath))
-        {
-            System.IO.Directory.CreateDirectory(dirPath);
-        }
-        System.IO.File.WriteAllBytes(dirPath + "/R_" + Random.Range(0, 100000) + ".png", bytes);
-        Debug.Log(bytes.Length / 1024 + "Kb was saved as: " + dirPath);
-#if UNITY_EDITOR
-        UnityEditor.AssetDatabase.Refresh();
-#endif
-    }
-    /*public void ConstructionState()
-    {
-        foreach (CellViewModel cellViewModel in cellViews)
-        {
-             cellViewModel.ConstructionState(true);
-        }
+        constructionView.SetActiveGameObject(true);
     }
 
     public void IdleState()
     {
-        foreach (CellViewModel cellViewModel in cellViews)
-        {
-            cellViewModel.ConstructionState(false);
-        }
+        constructionView.SetActiveGameObject(false);
     }
-
-    public void SetCellViewConstructionStateColor(int xPos, int yPos, bool isAvailable)
-    {
-        cellViews[xPos, yPos].ChangeMaskColor(isAvailable);
-    }*/
 }

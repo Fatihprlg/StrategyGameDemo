@@ -9,7 +9,7 @@ public class ScreenModel : MonoBehaviour, IInitializable
     [SerializeField] protected UnityEvent onHideEvent;
     [SerializeField] protected CanvasGroup canvasGroup;
 
-    public void Initialize()
+    public virtual void Initialize()
     {
         foreach (var item in screenElements)
         {

@@ -9,6 +9,8 @@ namespace Constants
         public const string LEVELS_PATH = "Assets/GameAssets/Levels/Levels.json";
         public const string SAMPLE_DATA_MODEL_PATH = "/Source/Base/Models/DataModels/SampleDataModel.cs";
         public const string NEW_DATA_MODEL_PATH = "/Source/Base/Models/DataModels/";
+        public const string RENDERED_TEXTURES_PATH = "/RenderedTexturesOutput/";
+        public const string REGISTRY_PATH = "/Scriptables/Registry.asset";
     }
 
     public static class Colors

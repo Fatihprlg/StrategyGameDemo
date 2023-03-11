@@ -14,9 +14,13 @@ public class LevelController : MonoBehaviour, IInitializable
     public LevelModel activeLevel;
     public int maxLevelCount => levelModels.list.Count;
     [SerializeField] private Object levels;
+    [SerializeField] private SpriteRenderer gridRenderer;
+    [SerializeField] private MultiplePoolModel entityPools;
+    [SerializeField] private Registry entityRegistry;
+    
     [SerializeField] private UnityEvent onLevelLoaded;
-    [SerializeField] private LevelAdapter levelAdapter;
     [Dependency] private GameController _gameController;
+    [Dependency] private CameraController _cameraController;
     private SceneController _sceneController;
     private LevelList levelModels;
 
@@ -35,7 +39,9 @@ public class LevelController : MonoBehaviour, IInitializable
     private void Init()
     {
         this.Inject();
-        levelAdapter.Initialize();
+        LevelAdapter.Init(gridRenderer);
+        EntityFactory.SetRegistry(entityRegistry);
+        EntityFactory.SetEntityPools(entityPools);
 #if UNITY_EDITOR
         GetLevels();
 #endif
@@ -43,6 +49,7 @@ public class LevelController : MonoBehaviour, IInitializable
         DeserializeLevels();
         activeLevel = null;
         LoadLevel(forceLevelIndex >= 0 ? forceLevelIndex : PlayerDataModel.Data.LevelIndex);
+        _cameraController.SetGridHalfSize(activeLevel.grid.GetLength(0)/2);
     }
 
     private void LoadLevel(int levelIndex)
@@ -88,7 +95,7 @@ public class LevelController : MonoBehaviour, IInitializable
 
         ClearScene();
         activeLevel = levelModels.list[levelIndex];
-        levelAdapter.LoadLevel(activeLevel);
+        LevelAdapter.LoadLevel(activeLevel);
         onLevelLoaded?.Invoke();
     }
 

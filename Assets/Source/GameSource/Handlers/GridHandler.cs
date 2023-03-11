@@ -25,12 +25,12 @@ public class GridHandler : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        /*Gizmos.color = Color.red;
         foreach (CellModel cellModel in grid)
         {
             var pos = GridHelper.GetCellWorldPosition(cellModel.Position.x, cellModel.Position.y);
             Gizmos.DrawWireSphere(pos, .05f);
-        }
+        }*/
     }
 
 

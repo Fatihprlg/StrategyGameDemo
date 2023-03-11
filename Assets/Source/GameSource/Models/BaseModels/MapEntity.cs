@@ -5,7 +5,6 @@ public class MapEntity : MonoBehaviour
     public MapEntityData Data => data;
     [SerializeField] private MapEntityData data;
     [SerializeField] private MapEntityViewModel _entityViewModel;
-    
     private int currentHealth;
     
     public void SetData(MapEntityData entityData)
