@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -48,6 +49,7 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
     
     private IEnumerator LoadAsynchronously(SceneModel scene)
     {
+        
         float timer = 0f;
         float minLoadTime = loadingScreen.MinLoadTime;
         float displayedProgress = 0;

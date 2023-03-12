@@ -11,16 +11,21 @@ public class ConstructionView : ScreenElement
     {
         base.Initialize();
         EventManager.OnBuildingUISelected.AddListener(Show);
+        EventManager.OnConstructionEnd.AddListener(Hide);
         foreach (ScreenElement screenElement in subElements)
         {
             screenElement.Initialize();
         }
     }
 
+    public void OnCloseButtonClicked()
+    {
+        EventManager.OnConstructionEnd?.Invoke();
+    }
+
     public void Show(BuildingData data)
     {
         gameObject.SetActive(true);
-        
     }
 
     public void Hide()

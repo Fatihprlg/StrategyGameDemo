@@ -1,47 +1,38 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GridHandler : MonoBehaviour
 {
-    [SerializeField] private GridViewModel gridView;
-    private CellModel[,] grid;
+    public static CellModel[,] Grid { get; private set; }
 
-    [EditorButton]
-    public void CreateGrid(int x, int y)
+    public static void InitializeGrid(int[,] referenceAutomaton)
     {
-        grid = GridHelper.CreateGrid(x, y);
-        gridView.InitializeGridView(grid);
+        Grid = GridHelper.CreateGrid(referenceAutomaton);
     }
 
-    [EditorButton]
-    public void CreateGridWithAutomaton(int x, int y)
+    public static void PlaceEntitiesOnGrid(IEnumerable<MapEntity> entities)
     {
-        var automaton = CellularAutomatonCreator.CreateAutomata(x, y);
-        grid = GridHelper.CreateGrid(automaton);
-        gridView.InitializeGridView(grid);
+        foreach (MapEntity mapEntityData in entities)
+        {
+            GridHelper.PlaceItemOnGrid(mapEntityData.Data.width,mapEntityData.Data.height, mapEntityData.Position, Grid);
+        }
     }
+    
 
     private void OnDrawGizmos()
     {
-        /*Gizmos.color = Color.red;
-        foreach (CellModel cellModel in grid)
+        if (Grid is { Length: > 0 })
         {
-            var pos = GridHelper.GetCellWorldPosition(cellModel.Position.x, cellModel.Position.y);
-            Gizmos.DrawWireSphere(pos, .05f);
-        }*/
+            foreach (CellModel cellModel in Grid)
+            {
+                Gizmos.color = !cellModel.isEmpty || cellModel.CellType == CellTypes.NotWalkable
+                    ? Color.red
+                    : Color.green;
+                Gizmos.DrawWireSphere(GridHelper.GetCellWorldPosition(cellModel.Position.x, cellModel.Position.y), .1f);
+            }
+        }
     }
 
-
-    /*[EditorButton]
-    public void ConstructionState(bool state)
-    {
-        if (state)
-            gridView.ConstructionState();
-        else
-        {
-            gridView.IdleState();
-        }
-    }*/
+    
 }

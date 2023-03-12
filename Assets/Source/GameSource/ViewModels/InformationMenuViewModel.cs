@@ -12,45 +12,51 @@ public class InformationMenuViewModel : ScreenElement
 
     public override void Initialize()
     {
-        EventManager.OnBuildingUISelected.AddListener(ShowBuildingInfo);
         EventManager.OnMapEntitySelected.AddListener(ShowMapEntityInfo);
+        EventManager.OnMapEntityDeselected.AddListener(entity => ClearInfoView());
     }
 
-    public void ShowBuildingInfo(BuildingData buildingData)
+    private void ShowBuildingInfo(MapEntity entity)
     {
         ClearInfoView();
+        BuildingData buildingData = entity.Data as BuildingData;
         buildingUI.SetData(buildingData);
         buildingUI.SetActiveGameObject(true);
+        buildingUI.IsClickable = false;
         if(buildingData.capableUnits.Length == 0) return;
         productions.SetActive(true);
         for (int i = 0; i < buildingData.capableUnits.Length; i++)
         {
             productionUnitUIViews[i].SetData(buildingData.capableUnits[i]);
+            productionUnitUIViews[i].IsClickable = true;
+            productionUnitUIViews[i].parentBuilding = entity;
             productionUnitUIViews[i].SetActiveGameObject(true);
         }
     }
 
-    private void ShowMapEntityInfo(MapEntityData data)
+    private void ShowMapEntityInfo(MapEntity entity)
     {
         ClearInfoView();
+        MapEntityData data = entity.Data;
         if (data.GetType() == typeof(UnitData))
         {
             ShowUnitInfo(data as UnitData);
         }
         else
         {
-            ShowBuildingInfo(data as BuildingData);
+            ShowBuildingInfo(entity);
         }
     }
     
-    public void ShowUnitInfo(UnitData unitData)
+    private void ShowUnitInfo(UnitData unitData)
     {
         ClearInfoView();
         unitUI.SetData(unitData);
         unitUI.SetActiveGameObject(true);
+        unitUI.IsClickable = false;
     }
 
-    public void ClearInfoView()
+    private void ClearInfoView()
     {
         unitUI.SetActiveGameObject(false);
         buildingUI.SetActiveGameObject(false);

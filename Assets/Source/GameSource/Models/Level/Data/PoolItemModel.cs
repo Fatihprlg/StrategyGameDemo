@@ -15,14 +15,14 @@ public class PoolItemModel : ItemModel<PoolItemDataModel>
     }
     public override PoolItemDataModel GetData()
     {
-        transform.position = GridHelper.WorldToGridPosition(transform.position, entityData.Data.width, entityData.Data.height);
+        Vector2Int gridPos = GridHelper.WorldToGridCoordinates(transform.position, entityData.Data.width, entityData.Data.height);
         SetValues();
         PoolItemDataModel dataModel = new ()
         {
             Id = id,
             poolIndex = poolIndex,
             multiplePoolIndex = multiplePoolIndex,
-            Position = transform.position,
+            Position = gridPos,
             width = entityData.Data.width,
             height = entityData.Data.height,
             guid = entityData.Data.Guid
@@ -44,5 +44,5 @@ public class PoolItemDataModel : ItemDataModel
     public int width;
     public int height;
     public string guid;
-    public Vector3 Position;
+    public Vector2Int Position;
 }

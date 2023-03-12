@@ -32,7 +32,7 @@ public static class EntityFactory
         MapEntityData data = registeredItems.FindByGuid(itemData.guid) as MapEntityData;
         entity.SetData(data);
         entity.transform.position = GridHelper.GetUnitWorldPosition((int)itemData.Position.x, (int)itemData.Position.y, itemData.width, itemData.height);
+        entity.Position = itemData.Position;
         return entity;
     }
-    
 }

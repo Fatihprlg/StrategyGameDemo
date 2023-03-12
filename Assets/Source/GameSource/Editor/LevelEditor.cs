@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -7,22 +8,28 @@ public class LevelEditor : EditorWindow
 {
     [SerializeField] private MultiplePoolModel entityPools;
     [SerializeField] private Registry _registry;
-    [SerializeField] private LevelModel activeLevel;
-    [SerializeField] private SpriteRenderer gridRenderer;
+    [SerializeField] private GridViewModel gridView;
     [SerializeField] private Texture2D WalkableRef;
     [SerializeField] private Texture2D NonWalkableRef;
+    [SerializeField] private LevelModel activeLevel;
     
-    private int editorLevelIndex, gridWidth = 32, gridHeight = 32, stepCount = 15, liveNeighboursRequired = 4;
     private float fillPercent = .65f;
-    private Object levels;
-    private SerializedObject serializedObject;
-    private LevelList levelModels;
-    private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext, cellularAutomatonContext;
     private int[,] currentAutomaton;
+    private int editorLevelIndex, gridWidth = 32, gridHeight = 32, stepCount = 15, liveNeighboursRequired = 4;
+    private SerializedObject serializedObject;
+    private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext, cellularAutomatonContext;
     private Texture2D currentAutomatonTexture;
+    private LevelList levelModels;
+    private Object levels;
     private void OnEnable()
     {
         serializedObject = new SerializedObject(this);
+        _registry = AssetDatabase.LoadAssetAtPath<Registry>(Constants.Strings.REGISTRY_PATH);
+        WalkableRef = AssetDatabase.LoadAssetAtPath<Texture2D>(Constants.Strings.WALKABLE_REF_PATH);
+        NonWalkableRef = AssetDatabase.LoadAssetAtPath<Texture2D>(Constants.Strings.NON_WALKABLE_REF_PATH);
+
+        gridView = FindObjectOfType<GridViewModel>();
+        entityPools = FindObjectsOfType<MultiplePoolModel>()[0];
         GetLevels();
         saveContent = new GUIContent
         {
@@ -68,13 +75,13 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_registry)));
         EditorGUILayout.Space(5);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(activeLevel)));
-        EditorGUILayout.Space(5);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(gridRenderer)));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(gridView)));
         EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(WalkableRef)));
         EditorGUILayout.Space(5);
         EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(NonWalkableRef)));
+        EditorGUILayout.Space(5);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(activeLevel)));
         EditorGUILayout.Space(10);
         serializedObject.ApplyModifiedProperties();
 
@@ -152,7 +159,7 @@ public class LevelEditor : EditorWindow
             }
         }
         currentAutomatonTexture.Apply();
-        gridRenderer.sprite = Sprite.Create(currentAutomatonTexture, new Rect(0, 0, currentAutomatonTexture.width, currentAutomatonTexture.height), Vector2.zero);;
+        gridView.SetGridView(currentAutomatonTexture);
     }
 
     private void ResetLevelsData()
@@ -184,30 +191,32 @@ public class LevelEditor : EditorWindow
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
-    private void DeserializeLevels()
-    {
-        levelModels = JsonHelper.LoadJson<LevelList>(levels.ToString());
-    }
-    
+
     private void LoadLevel(int levelIndex)
     {
-        if (levelModels == null || levelModels.list.Count == 0) DeserializeLevels();
-        if (levelModels.list.Count == 0) return;
+        GetLevels();
+        if (levelModels == null || levelModels.list.Count == 0)
+        {
+            Debug.LogError($"Level models ({levelModels}) is null or empty.");
+            return;
+        }
         activeLevel = levelModels.list.FirstOrDefault(lv => lv.index == levelIndex);
         if (activeLevel is null)
         {
             Debug.LogError($"There is no level with given index {levelIndex}");
             return;
         }
-        LevelAdapter.Init(gridRenderer);
+
+        currentAutomaton = activeLevel.grid;
+        currentAutomatonTexture = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{activeLevel.name}.png");
         EntityFactory.SetRegistry(_registry);
         EntityFactory.SetEntityPools(entityPools);
-        LevelAdapter.LoadLevel(activeLevel);
+        LevelAdapter.LoadLevel(activeLevel, gridView);
     }
     
     private void SaveLevel()
     {
-        DeserializeLevels();
+        GetLevels();
         LevelModel level = new()
         {
             name = $"Level {levelModels.list.Count}",
@@ -219,22 +228,31 @@ public class LevelEditor : EditorWindow
         SaveWorldItems(level, Constants.Strings.LEVELS_PATH);
         GetLevels();
         LevelAdapter.ClearScene();
+        Debug.Log($"{level.name} saved to path {Constants.Strings.LEVELS_PATH}");
     }
 
     private void GetLevels()
     {
-        Object asset = AssetDatabase.LoadAssetAtPath<Object>(Constants.Strings.LEVELS_PATH);
-        levels = asset;
-        DeserializeLevels();
+        try
+        {
+            Object asset = AssetDatabase.LoadAssetAtPath<Object>(Constants.Strings.LEVELS_PATH);
+            levels = asset;
+            levelModels = JsonHelper.LoadJson<LevelList>(levels.ToString());
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
     private void OverrideLevel()
     {
-        if (levelModels == null) DeserializeLevels();
+        if (levelModels == null) GetLevels();
         if(currentAutomatonTexture)
             Helpers.Other.SaveTexture(currentAutomatonTexture, Constants.Strings.RENDERED_TEXTURES_PATH, activeLevel.name);
         if (currentAutomaton is { Length: > 0 })
             activeLevel.grid = currentAutomaton;
         SaveWorldItems(activeLevel, Constants.Strings.LEVELS_PATH, true);
+        Debug.Log($"{activeLevel.name} overriden to path {Constants.Strings.LEVELS_PATH}");
     }
 
 }

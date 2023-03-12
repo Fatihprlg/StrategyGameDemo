@@ -10,6 +10,7 @@ namespace Helpers
 
     public static class Vectors
     {
+        
         public static Vector3 RotatePointAround(Vector3 point, Vector3 offset, Quaternion angle)
         {
             return angle * (point - offset) + offset;
@@ -28,6 +29,14 @@ namespace Helpers
             Vector2 myPositionOnScreen = camera.WorldToScreenPoint(targetPos);
             float scaleFactor = canvas.scaleFactor;
             return new Vector2(myPositionOnScreen.x / scaleFactor, myPositionOnScreen.y / scaleFactor);
+        }
+
+        public static Vector3 ScreenToWorldPoint(Vector2 point, Camera camera, float distanceFromCamera = 10)
+        {
+            Vector3 pos = point;
+            pos.z = distanceFromCamera;
+            Vector3 worldPos = camera.ScreenToWorldPoint(pos);
+            return worldPos;
         }
 
         public static Vector2 ToVector2(float angle)

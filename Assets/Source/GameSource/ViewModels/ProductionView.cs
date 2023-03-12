@@ -11,6 +11,7 @@ public class ProductionView : ScreenElement
     {
         base.Initialize();
         EventManager.OnBuildingUISelected.AddListener(Hide);
+        EventManager.OnConstructionEnd.AddListener(Show);
         foreach (ScreenElement screenElement in subElements)
         {
             screenElement.Initialize();

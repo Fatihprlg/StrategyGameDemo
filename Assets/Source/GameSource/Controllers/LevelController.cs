@@ -14,13 +14,11 @@ public class LevelController : MonoBehaviour, IInitializable
     public LevelModel activeLevel;
     public int maxLevelCount => levelModels.list.Count;
     [SerializeField] private Object levels;
-    [SerializeField] private SpriteRenderer gridRenderer;
     [SerializeField] private MultiplePoolModel entityPools;
     [SerializeField] private Registry entityRegistry;
-    
     [SerializeField] private UnityEvent onLevelLoaded;
-    [Dependency] private GameController _gameController;
     [Dependency] private CameraController _cameraController;
+    [Dependency] private GridViewModel gridView;
     private SceneController _sceneController;
     private LevelList levelModels;
 
@@ -39,7 +37,6 @@ public class LevelController : MonoBehaviour, IInitializable
     private void Init()
     {
         this.Inject();
-        LevelAdapter.Init(gridRenderer);
         EntityFactory.SetRegistry(entityRegistry);
         EntityFactory.SetEntityPools(entityPools);
 #if UNITY_EDITOR
@@ -95,7 +92,9 @@ public class LevelController : MonoBehaviour, IInitializable
 
         ClearScene();
         activeLevel = levelModels.list[levelIndex];
-        LevelAdapter.LoadLevel(activeLevel);
+        GridHandler.InitializeGrid(activeLevel.grid);
+        var placedEntities = LevelAdapter.LoadLevel(activeLevel, gridView);
+        GridHandler.PlaceEntitiesOnGrid(placedEntities.ToArray());
         onLevelLoaded?.Invoke();
     }
 

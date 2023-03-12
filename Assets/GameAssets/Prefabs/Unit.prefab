@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6409869171199086584}
   - component: {fileID: 4172856230434443213}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: healthBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1737444405365823882}
   - component: {fileID: 7878684170735354395}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,11 @@ GameObject:
   - component: {fileID: 7403151382055409958}
   - component: {fileID: 7716002780922673707}
   - component: {fileID: 7373522245488534895}
-  m_Layer: 0
+  - component: {fileID: 6552142119149848773}
+  - component: {fileID: 7203012132354751393}
+  - component: {fileID: 4248901740487286}
+  - component: {fileID: 2928044273681861711}
+  m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,6 +185,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ece362a32ead245659d708bc89d9ceb9, type: 2}
   _entityViewModel: {fileID: 7878684170735354395}
+  _collider: {fileID: 2928044273681861711}
+  behaviours:
+  - {fileID: 6552142119149848773}
+  - {fileID: 7203012132354751393}
+  - {fileID: 4248901740487286}
 --- !u!114 &7373522245488534895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +206,55 @@ MonoBehaviour:
   multiplePoolIndex: 0
   poolIndex: 0
   entityData: {fileID: 7716002780922673707}
+--- !u!114 &6552142119149848773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085144922707494899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e2530caa044edab830aafbe1155741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7203012132354751393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085144922707494899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73bbb01a81e94ed8ae80f6c4d260cae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4248901740487286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085144922707494899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba40d1eea2794ee9bbfbb21b6e0be5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &2928044273681861711
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085144922707494899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4174382802925469246
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6500001683148291293}
   - component: {fileID: 7584745167493103699}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: healthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245744052747593925}
   - component: {fileID: 7836849612200436862}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +432,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4523607849287993645}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HBParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}

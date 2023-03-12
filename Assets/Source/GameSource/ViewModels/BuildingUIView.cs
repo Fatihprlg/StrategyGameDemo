@@ -2,6 +2,7 @@ using UnityEngine.EventSystems;
 
 public class BuildingUIView : EntityUIView, IPointerClickHandler
 {
+    public bool IsClickable { get; set; } = true;
     private BuildingData currData;
     public override void SetData(MapEntityData data)
     {
@@ -9,9 +10,9 @@ public class BuildingUIView : EntityUIView, IPointerClickHandler
         currData = data as BuildingData;
     }
 
-    public BuildingData GetData() => currData;
     public void OnPointerClick(PointerEventData eventData)
     {
-        EventManager.OnBuildingUISelected?.Invoke(this.GetData());
+        if(!IsClickable) return;
+        EventManager.OnBuildingUISelected?.Invoke(currData);
     }
 }

@@ -101,10 +101,9 @@ public class CameraController : ControllerBase
         ActiveCamera.m_Lens.OrthographicSize = clampedZoom;
         var gridSizeAsUnits = _halfGridSize * Constants.Numerical.CELL_SCALE_AS_UNIT;
         _maxY = (gridSizeAsUnits * 2) - clampedZoom + .5f;
-        _minY = clampedZoom - .5f;
         _maxX = gridSizeAsUnits + (_maxY - gridSizeAsUnits) / _aspectRatio + .5f;
-        _minX = clampedZoom - .5f;
-        print($"orthoSize: {clampedZoom}, minX: {_minX}, minY: {_minY}, maxX: {_maxX}, maxY: {_maxY}");
+        _minY = clampedZoom - .5f;
+        _minX = gridSizeAsUnits * 2 - _maxX -.5f;
     }
 
     private void Move()

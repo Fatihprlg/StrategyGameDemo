@@ -12,7 +12,6 @@ public class SceneField : ISerializationCallbackReceiver
     [SerializeField, HideInInspector] private string sceneName = "";
 #pragma warning restore 414
 
-// Makes it work with the existing Unity methods (LoadLevel/LoadScene)
     public static implicit operator string(SceneField sceneField)
     {
 #if UNITY_EDITOR

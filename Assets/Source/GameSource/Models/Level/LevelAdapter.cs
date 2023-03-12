@@ -1,24 +1,27 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class LevelAdapter
 {
-    private static SpriteRenderer gridRenderer;
-    public static void Init(SpriteRenderer _gridRenderer) => gridRenderer = _gridRenderer;
-    public static void LoadLevel(LevelModel level)
+    public static List<MapEntity> LoadLevel(LevelModel level, GridViewModel gridView)
     {
         ClearScene();
         Texture2D tex = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{level.name}.png");
-        gridRenderer.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
-        ActivatePoolObjects(level.poolItems.ToArray());
+        gridView.SetGridView(tex);
+        return ActivatePoolObjects(level.poolItems.ToArray());
     }
-    public static void ActivatePoolObjects(IEnumerable<PoolItemDataModel> items)
+    private static List<MapEntity> ActivatePoolObjects(IEnumerable<PoolItemDataModel> items)
     {
+        var placedEntities = new List<MapEntity>();
         foreach (PoolItemDataModel itemData in items)
         {
             MapEntity item = EntityFactory.GetMapEntity(itemData);
             item.SetActiveGameObject(true);
+            placedEntities.Add(item);
         }
+
+        return placedEntities;
     }
     
     public static void ClearScene()
