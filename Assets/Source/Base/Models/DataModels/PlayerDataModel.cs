@@ -10,8 +10,6 @@ public class PlayerDataModel : DataModel
     public static PlayerDataModel Data;
     public int Level = 1;
     public int LevelIndex;
-    public int OpenedLevelsCount = 1;
-    public int Currency;
 
     public PlayerDataModel Load()
     {

@@ -14,10 +14,10 @@ public class MapEntity : MonoBehaviour
     [SerializeField] private MapEntityBehaviour[] behaviours;
     
     
-    public void SetData(MapEntityData entityData)
+    public void SetData(MapEntityData entityData, int health = -1)
     {
         data = entityData;
-        CurrentHealth = entityData.health;
+        CurrentHealth = health < 1 ? entityData.health : health;
         const float cellScale = Constants.Numerical.CELL_SCALE_AS_UNIT;
         _collider.size = new Vector3(entityData.width * cellScale, entityData.height * cellScale, 1);
         _entityViewModel.Init(data);

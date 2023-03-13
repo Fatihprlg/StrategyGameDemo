@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.Plastic.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class MovementBehaviour : MapEntityBehaviour
@@ -27,9 +27,9 @@ public class MovementBehaviour : MapEntityBehaviour
             Vector3 wpWorldPos = GridHelper.GetUnitWorldPosition(wp.x, wp.y, _attachedEntity.Data.width, _attachedEntity.Data.height);
             transform.DOMove(wpWorldPos, durationPerWp).SetEase(Ease.Linear).SetId(this);
             yield return new WaitForSeconds(durationPerWp);
-            GridHelper.DestructItemOnGrid(_attachedEntity.Data.width,_attachedEntity.Data.height, _attachedEntity.Position, GridHandler.Grid);
+            GridHandler.RemoveEntityOnGrid(_attachedEntity);
             _attachedEntity.Position = wp;
-            GridHelper.PlaceItemOnGrid(_attachedEntity.Data.width,_attachedEntity.Data.height, _attachedEntity.Position, GridHandler.Grid);
+            GridHandler.PlaceEntityOnGrid(_attachedEntity);
             onStepComplete?.Invoke();
         }
         yield return null;

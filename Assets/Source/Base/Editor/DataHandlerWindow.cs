@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class DataHandlerWindow : EditorWindow
 {
-    private int getMoneyAmount;
     private string dataModelName;
-    private  GUIContent resetContent, createContent, GetMoneyContent;
+    private  GUIContent resetContent, createContent;
     [MenuItem("My Game Lib/DataHandler")]
     public static void ShowWindow()
     {
@@ -26,12 +25,6 @@ public class DataHandlerWindow : EditorWindow
         {
             text = "Clear All Datas"
         };
-
-        GetMoneyContent = new GUIContent
-        {
-            text = "Get Money"
-        };
-        getMoneyAmount = 1000000;
     }
 
     private void OnGUI()
@@ -44,11 +37,6 @@ public class DataHandlerWindow : EditorWindow
         if (GUILayout.Button(createContent))
         {
             CreateNewDataModel(dataModelName);
-        }
-        getMoneyAmount = EditorGUILayout.IntField("Money Amount", getMoneyAmount);
-        if (GUILayout.Button(GetMoneyContent))
-        {
-            GetMoney(getMoneyAmount);
         }
         
     }
@@ -96,11 +84,5 @@ public class DataHandlerWindow : EditorWindow
         {
             Debug.LogError("Check Data Name!");
         }
-    }
-    private static void GetMoney(int amount)
-    {
-        if(Application.isPlaying)
-            CurrencyManager.Instance.UpdateCurrencyInstant(amount);
-        else Debug.LogWarning("GetMoney only usable for play mode.");
     }
 }

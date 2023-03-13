@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class GridHelper
@@ -136,6 +137,26 @@ public static class GridHelper
             cellModel.SetAdjacencyArray(grid);
         }
         return grid;
+    }
+
+    public static List<LevelEntityData> ToLevelEntityDataList(this List<MapEntity> entityList)
+    {
+        var items = new List<LevelEntityData>();
+        foreach (MapEntity mapEntity in entityList)
+        {
+            LevelEntityData item = new()
+            {
+                guid = mapEntity.Data.Guid,
+                height = mapEntity.Data.height,
+                width = mapEntity.Data.width,
+                x = mapEntity.Position.x,
+                y = mapEntity.Position.y,
+                poolIndex = mapEntity.transform.parent.GetSiblingIndex(),
+                health = mapEntity.CurrentHealth
+            };
+            items.Add(item);
+        }
+        return items;
     }
 
     public static CellModel[,] CreateGrid(int[,] referencedAutomaton)

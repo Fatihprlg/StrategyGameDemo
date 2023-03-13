@@ -17,7 +17,7 @@ public class SpawnerBehaviour : MapEntityBehaviour
         spawnedUnit.transform.position = GridHelper.GetUnitWorldPosition(spawnGridCoordinates.x, spawnGridCoordinates.y,
             data.width, data.height);
         spawnedUnit.Position = spawnGridCoordinates;
-        GridHelper.PlaceItemOnGrid(data.width, data.height, spawnedUnit.Position, grid);
+        GridHandler.PlaceEntityOnGrid(spawnedUnit);
         spawnedUnit.SetActiveGameObject(true);
         return true;
     }

@@ -35,7 +35,6 @@ public class InfiniteContent : MonoBehaviour
             anchoredPos.x = 0;
             rtChildren[i].anchoredPosition = anchoredPos;
             
-            print($"{name}: anchored-{rtChildren[i].anchoredPosition}, local-{rtChildren[i].localPosition}");
             
         }
     }

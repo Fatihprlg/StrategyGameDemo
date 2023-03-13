@@ -35,4 +35,13 @@ public static class EntityFactory
         entity.Position = itemData.Position;
         return entity;
     }
+    public static MapEntity GetMapEntity(LevelEntityData itemData)
+    {
+        MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(itemData.poolIndex);
+        MapEntityData data = registeredItems.FindByGuid(itemData.guid) as MapEntityData;
+        entity.SetData(data, itemData.health);
+        entity.transform.position = GridHelper.GetUnitWorldPosition((int)itemData.x, (int)itemData.y, itemData.width, itemData.height);
+        entity.Position = new Vector2Int((int)itemData.x, (int)itemData.y);
+        return entity;
+    }
 }

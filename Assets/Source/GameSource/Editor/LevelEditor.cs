@@ -211,7 +211,7 @@ public class LevelEditor : EditorWindow
         currentAutomatonTexture = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{activeLevel.name}.png");
         EntityFactory.SetRegistry(_registry);
         EntityFactory.SetEntityPools(entityPools);
-        LevelAdapter.LoadLevel(activeLevel, gridView);
+        LevelAdapter.LoadLevel(activeLevel, gridView, true);
     }
     
     private void SaveLevel()

@@ -47,7 +47,7 @@ public class BuildingConstructor : MonoBehaviour, IInitializable
         MapEntity entity = EntityFactory.GetBuilding(buildingToConstruct);
         entity.Position = gridPos;
         entity.transform.position = GridHelper.GetUnitWorldPosition(gridPos.x, gridPos.y, buildingToConstruct.width, buildingToConstruct.height);
-        GridHelper.PlaceItemOnGrid(buildingToConstruct.width, buildingToConstruct.height, gridPos, GridHandler.Grid);
+        GridHandler.PlaceEntityOnGrid(entity);
         entity.SetActiveGameObject(true);
         EventManager.OnConstructionEnd?.Invoke();
     }
