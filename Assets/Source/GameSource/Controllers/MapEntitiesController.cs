@@ -4,7 +4,8 @@ public class MapEntitiesController : ControllerBase
 {
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private LayerMask entityLayerMask;
-    private Ray ray;
+    private Ray leftClickRay;
+    private Ray rightClickRay;
     private MapEntity selectedEntity;
     
     public override void ControllerUpdate(GameStates currentState)
@@ -17,8 +18,8 @@ public class MapEntitiesController : ControllerBase
     {
         if(_inputManager.IsPointerOverUIElement()) return;
         DeselectEntity();
-        ray = CameraController.MainCamera.ScreenPointToRay(_inputManager.PointerDownPosition);
-        if (!Physics.Raycast(ray, out RaycastHit hit, 20, entityLayerMask)) return;
+        leftClickRay = CameraController.MainCamera.ScreenPointToRay(_inputManager.PointerDownPosition);
+        if (!Physics.Raycast(leftClickRay, out RaycastHit hit, 20, entityLayerMask)) return;
         if (!hit.collider.TryGetComponent(out MapEntity entity)) return;
         SelectEntity(entity);
     }
@@ -28,12 +29,11 @@ public class MapEntitiesController : ControllerBase
         if(!selectedEntity) return;
         MovementBehaviour movement = selectedEntity.TryGetEntityBehaviour<MovementBehaviour>();
         AttackBehaviour attack = selectedEntity.TryGetEntityBehaviour<AttackBehaviour>();
-        Ray ray =CameraController.MainCamera.ScreenPointToRay(_inputManager.RightPointerDownPosition);
-        if (attack && Physics.Raycast(ray, out RaycastHit hit, 20, entityLayerMask))
+        rightClickRay =CameraController.MainCamera.ScreenPointToRay(_inputManager.RightPointerDownPosition);
+        if (attack && Physics.Raycast(rightClickRay, out RaycastHit hit, 20, entityLayerMask))
         {
             if (!hit.collider.TryGetComponent(out DamageableBehaviour entity)) return;
-            Debug.Log("attack");
-            //TODO: ATTACK
+            attack.Attack(entity);
         }
         else if (movement)
         {

@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using DG.Tweening;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
 
 public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject, IInitializable
 {

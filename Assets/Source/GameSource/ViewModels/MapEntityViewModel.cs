@@ -9,9 +9,10 @@ public class MapEntityViewModel : MonoBehaviour
     {
         Icon.sprite = data.visual;
         healthBar.localScale = Vector3.one;
+        UpdateHealthBar(1);
     }
 
-    public void UpdateHealthBar(int percentage)
+    public void UpdateHealthBar(float percentage)
     {
         Vector3 currentSize = healthBar.localScale;
         currentSize.x = percentage;

@@ -26,7 +26,6 @@ public class BuilderEditor : Editor
 
         EditorUtils.DrawUILine(Color.white);
         GUILayout.Space(5);
-        //GUILayout.Label("Classes on Scene");
         showMappedClasses = EditorGUILayout.Foldout(showMappedClasses, "Mapped Classes");
         if (showMappedClasses)
             if (builder.classes != null)

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public static class PathFinder
 {
+    private static readonly BinaryHeap _openList = new (128);
+    private static readonly List<CellModel> _closedList = new ();
+    
     public static List<Vector2Int> FindPath(Vector2Int startPos, Vector2Int endPos, CellModel[,] grid)
     {
         CellModel startNode = grid[startPos.x, startPos.y];
@@ -11,8 +14,8 @@ public static class PathFinder
         int xLen = grid.GetLength(0);
         int yLen = grid.GetLength(1);
         
-        BinaryHeap _openList = new (128);
-        List<CellModel> _closedList =  new ();
+        _openList.Clear();
+        _closedList.Clear();
         _openList.Add(startNode);
 
         for (int x = 0; x < xLen; x++)

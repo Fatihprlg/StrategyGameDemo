@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-#if UNITY_EDITOR
 using UnityEditor;
 
 [InitializeOnLoad]
@@ -33,8 +32,8 @@ public class CustomHierarcyWindow : MonoBehaviour
             {
                 #region Determine Styling
 
-                Color BKCol =Label.BackgroundColor;
-                Color TextCol =  Label.TextColor;
+                Color BKCol = Label.BackgroundColor;
+                Color TextCol = Label.TextColor;
                 FontStyle TextStyle = Label.FontStyle;
 
                 #endregion
@@ -44,7 +43,9 @@ public class CustomHierarcyWindow : MonoBehaviour
                 //Only draw background if background color is not completely transparent
                 if (BKCol.a > 0f)
                 {
-                    EditorGUI.DrawRect(new Rect(inSelectionRect.x, inSelectionRect.y, inSelectionRect.width + 100, inSelectionRect.height), BKCol);
+                    EditorGUI.DrawRect(
+                        new Rect(inSelectionRect.x, inSelectionRect.y, inSelectionRect.width + 100,
+                            inSelectionRect.height), BKCol);
 
                     if (Label.Texture != null)
                         DrawIcon(inSelectionRect, Label.Texture, Label.IconSize);
@@ -73,4 +74,3 @@ public class CustomHierarcyWindow : MonoBehaviour
         EditorGUI.LabelField(r, label, style);
     }
 }
-#endif

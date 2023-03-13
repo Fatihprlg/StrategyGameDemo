@@ -27,6 +27,12 @@ public class MapEntity : MonoBehaviour
         }
     }
 
+    public void DestroyEntity()
+    {
+        GridHelper.DestructItemOnGrid(data.width, data.height, Position, GridHandler.Grid);
+        gameObject.SetActive(false);
+    }
+
 
     public T TryGetEntityBehaviour<T>() where T : MapEntityBehaviour
     {

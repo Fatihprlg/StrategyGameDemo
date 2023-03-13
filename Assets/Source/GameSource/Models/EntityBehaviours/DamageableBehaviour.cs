@@ -1,8 +1,21 @@
+using UnityEngine;
+
 public class DamageableBehaviour : MapEntityBehaviour
 {
-    public void DealDamage(int damage)
+    public bool isDead { get; private set; }
+    public Vector2Int GetPosition() => _attachedEntity.Position;
+    
+    public bool DealDamage(int damage)
     {
+        if (!isActiveAndEnabled) return true;
         _attachedEntity.CurrentHealth -= damage;
-        _attachedEntity.EntityViewModel.UpdateHealthBar(_attachedEntity.CurrentHealth/_attachedEntity.Data.health);
+        _attachedEntity.EntityViewModel.UpdateHealthBar((float)_attachedEntity.CurrentHealth/(float)_attachedEntity.Data.health);
+        print($"{gameObject.name} deal damage: {damage}, current health: {_attachedEntity.CurrentHealth}");
+        isDead = _attachedEntity.CurrentHealth <= 0;
+        if (isDead)
+        {
+            _attachedEntity.DestroyEntity();
+        }
+        return isDead;
     }
 }

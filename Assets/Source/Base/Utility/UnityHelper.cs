@@ -10,7 +10,19 @@ namespace Helpers
 
     public static class Vectors
     {
-        
+
+        public static bool IsPointInAreaRange(Vector3 point, Vector3 center, float range)
+        {
+            Vector3 start = center - Vector3.one * range;
+            Vector3 end = center + Vector3.one * range;
+            return IsPointBetweenTwoVector(start, end, point);
+        }
+        public static bool IsPointInAreaRange(Vector2 point, Vector2 center, float range)
+        {
+            Vector3 start = center - Vector2.one * range;
+            Vector3 end = center + Vector2.one * range;
+            return IsPointBetweenTwoVector(start, end, point);
+        }
         public static Vector3 RotatePointAround(Vector3 point, Vector3 offset, Quaternion angle)
         {
             return angle * (point - offset) + offset;
