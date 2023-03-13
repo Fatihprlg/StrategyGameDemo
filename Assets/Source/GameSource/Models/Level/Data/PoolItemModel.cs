@@ -40,5 +40,6 @@ public class PoolItemDataModel : ItemDataModel
     public int width;
     public int height;
     public string guid;
+    public Teams team;
     public Vector2Int Position;
 }

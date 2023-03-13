@@ -4,6 +4,7 @@ using UnityEngine;
 public class LevelEntityData
 {
     public string guid;
+    public Teams team;
     public int poolIndex;
     public int width;
     public int height;

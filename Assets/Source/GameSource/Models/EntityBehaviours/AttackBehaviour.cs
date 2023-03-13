@@ -17,11 +17,12 @@ public class AttackBehaviour : MapEntityBehaviour
     public void Attack(DamageableBehaviour damageableTarget)
     {
         if(!isActiveAndEnabled) return;
+        if(damageableTarget.GetTeam == _attachedEntity.Team) return;
         ResetAttack();
         attackCoroutine = StartCoroutine(AttackCoroutine(damageableTarget));
     }
 
-    public void ResetAttack()
+    private void ResetAttack()
     {
         if (attackCoroutine is not null)
         {

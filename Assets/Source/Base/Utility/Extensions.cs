@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -185,19 +186,19 @@ public static class Extensions
         return target;
     }
 
-    public static Text SetText(this Button btn, string value)
+    public static TextMeshProUGUI SetText(this Button btn, string value)
     {
-        if (btn.GetComponentInChildren<Text>() != null)
+        if (btn.GetComponentInChildren<TextMeshProUGUI>() != null)
         {
-            btn.GetComponentInChildren<Text>().text = value;
-            return btn.GetComponentInChildren<Text>();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = value;
+            return btn.GetComponentInChildren<TextMeshProUGUI>();
         }
         else
         {
-            if (btn.GetComponent<Text>() != null)
+            if (btn.GetComponent<TextMeshProUGUI>() != null)
             {
-                btn.GetComponent<Text>().text = value;
-                return btn.GetComponent<Text>();
+                btn.GetComponent<TextMeshProUGUI>().text = value;
+                return btn.GetComponent<TextMeshProUGUI>();
             }
             else
             {

@@ -13,16 +13,16 @@ public static class EntityFactory
         registeredItems = _registry;
     }
 
-    public static MapEntity GetBuilding(BuildingData data)
+    public static MapEntity GetBuilding(BuildingData data, Teams team)
     {
         MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(1);
-        entity.SetData(data);
+        entity.SetData(data, team);
         return entity;
     }
-    public static MapEntity GetUnit(UnitData data)
+    public static MapEntity GetUnit(UnitData data, Teams team)
     {
         MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(0);
-        entity.SetData(data);
+        entity.SetData(data, team);
         return entity;
     }
 
@@ -30,7 +30,7 @@ public static class EntityFactory
     {
         MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(itemData.poolIndex);
         MapEntityData data = registeredItems.FindByGuid(itemData.guid) as MapEntityData;
-        entity.SetData(data);
+        entity.SetData(data, itemData.team);
         entity.transform.position = GridHelper.GetUnitWorldPosition((int)itemData.Position.x, (int)itemData.Position.y, itemData.width, itemData.height);
         entity.Position = itemData.Position;
         return entity;
@@ -39,7 +39,7 @@ public static class EntityFactory
     {
         MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(itemData.poolIndex);
         MapEntityData data = registeredItems.FindByGuid(itemData.guid) as MapEntityData;
-        entity.SetData(data, itemData.health);
+        entity.SetData(data,itemData.team, itemData.health);
         entity.transform.position = GridHelper.GetUnitWorldPosition((int)itemData.x, (int)itemData.y, itemData.width, itemData.height);
         entity.Position = new Vector2Int((int)itemData.x, (int)itemData.y);
         return entity;

@@ -44,7 +44,7 @@ public class BuildingConstructor : MonoBehaviour, IInitializable
     {
         if(!isLocationAvailable || isHoveringExitButton) return;
         Vector2Int gridPos = GridHelper.WorldToGridCoordinates(ghost.transform.position, buildingToConstruct.width, buildingToConstruct.height, gridSize);
-        MapEntity entity = EntityFactory.GetBuilding(buildingToConstruct);
+        MapEntity entity = EntityFactory.GetBuilding(buildingToConstruct, PlayerDataModel.Data.PlayerTeam);
         entity.Position = gridPos;
         entity.transform.position = GridHelper.GetUnitWorldPosition(gridPos.x, gridPos.y, buildingToConstruct.width, buildingToConstruct.height);
         GridHandler.PlaceEntityOnGrid(entity);

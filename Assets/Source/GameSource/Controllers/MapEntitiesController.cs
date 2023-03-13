@@ -45,6 +45,7 @@ public class MapEntitiesController : ControllerBase
 
     private void SelectEntity(MapEntity entity)
     {
+        if(entity.Team != PlayerDataModel.Data.PlayerTeam) return;
         selectedEntity = entity;
         EventManager.OnMapEntitySelected?.Invoke(entity);
     }

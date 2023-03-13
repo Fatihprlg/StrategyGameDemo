@@ -3,6 +3,7 @@ using UnityEngine;
 public class DamageableBehaviour : MapEntityBehaviour
 {
     public bool isDead { get; private set; }
+    public Teams GetTeam => _attachedEntity.Team;
     public Vector2Int GetPosition() => _attachedEntity.Position;
     
     public bool DealDamage(int damage)

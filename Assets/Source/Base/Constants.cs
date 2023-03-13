@@ -19,6 +19,9 @@ namespace Constants
     {
         public const string NOT_WALKABLE_AREA_COLOR = "#EC953E";
         public const string WALKABLE_AREA_COLOR = "#7AE885";
+        public const string BLUE = "#0000FF";
+        public const string RED = "#FF0000";
+        public const string GREEN = "#00FF00";
     }
 
     public static class Numerical

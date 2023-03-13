@@ -5,8 +5,8 @@ using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
-#endif
 [InitializeOnLoad]
+#endif
 public class CustomHierarcyWindow : MonoBehaviour
 {
 #if UNITY_EDITOR

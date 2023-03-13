@@ -13,7 +13,7 @@ public class SpawnerBehaviour : MapEntityBehaviour
         BuildingData buildingData = _attachedEntity.Data as BuildingData;
         if (!buildingData) return false;
         if (!buildingData.capableUnits.FirstOrDefault(unit => unit.Guid == data.Guid)) return false;
-        MapEntity spawnedUnit = EntityFactory.GetUnit(data);
+        MapEntity spawnedUnit = EntityFactory.GetUnit(data, _attachedEntity.Team);
         spawnedUnit.transform.position = GridHelper.GetUnitWorldPosition(spawnGridCoordinates.x, spawnGridCoordinates.y,
             data.width, data.height);
         spawnedUnit.Position = spawnGridCoordinates;

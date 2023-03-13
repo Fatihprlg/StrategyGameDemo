@@ -165,6 +165,11 @@ public class LevelEditor : EditorWindow
     private void ResetLevelsData()
     {
         levelModels.list.Clear();
+        string[] files = System.IO.Directory.GetFiles($"{Application.dataPath}{Constants.Strings.RENDERED_TEXTURES_PATH}", "*.png");
+        foreach (string file in files)
+        {
+            System.IO.File.Delete(file);
+        }
         JsonHelper.SaveJson(levelModels, Constants.Strings.LEVELS_PATH);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

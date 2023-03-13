@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class MapEntityViewModel : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer Icon;
+    [SerializeField] private SpriteRenderer teamMark;
     [SerializeField] private Transform healthBar;
     
     public void Init(MapEntityData data)
@@ -17,5 +19,16 @@ public class MapEntityViewModel : MonoBehaviour
         Vector3 currentSize = healthBar.localScale;
         currentSize.x = percentage;
         healthBar.localScale = currentSize;
+    }
+
+    public void SetTeamColor(Teams team)
+    {
+        teamMark.color = team switch
+        {
+            Teams.Blue => Helpers.Colors.ToColor(Constants.Colors.BLUE),
+            Teams.Red => Helpers.Colors.ToColor(Constants.Colors.RED),
+            Teams.Green => Helpers.Colors.ToColor(Constants.Colors.GREEN),
+            _ => throw new ArgumentOutOfRangeException(nameof(team), team, "Team Null")
+        };
     }
 }
