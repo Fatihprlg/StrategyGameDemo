@@ -14,8 +14,8 @@ public class LevelEditor : EditorWindow
     [SerializeField] private LevelModel activeLevel;
     
     private float fillPercent = .65f;
-    private int[,] currentAutomaton;
     private int editorLevelIndex, gridWidth = 32, gridHeight = 32, stepCount = 15, liveNeighboursRequired = 4;
+    private int[,] currentAutomaton;
     private SerializedObject serializedObject;
     private GUIContent saveContent, loadContent, clearSceneContent, overrideContent, resetDataContext, cellularAutomatonContext;
     private Texture2D currentAutomatonTexture;
@@ -88,9 +88,9 @@ public class LevelEditor : EditorWindow
         EditorUtils.DrawUILine(Color.white);
         gridWidth = EditorGUILayout.IntField("Grid Width ", gridWidth);
         gridHeight = EditorGUILayout.IntField("Grid Height ", gridHeight);
-        liveNeighboursRequired = EditorGUILayout.IntField("Live Neighbours Required ", liveNeighboursRequired);
-        stepCount = EditorGUILayout.IntField("StepCount ", stepCount);
-        fillPercent = EditorGUILayout.Slider("StepCount ", fillPercent, 0, 1);
+        stepCount = EditorGUILayout.IntField("Step Count ", stepCount);
+        liveNeighboursRequired = EditorGUILayout.IntSlider("Live Neighbours Required ", liveNeighboursRequired, 0, 8);
+        fillPercent = EditorGUILayout.Slider("Fill Percent ", fillPercent, 0, 1);
         
         if (GUILayout.Button(cellularAutomatonContext))
         {
@@ -213,7 +213,7 @@ public class LevelEditor : EditorWindow
         }
 
         currentAutomaton = activeLevel.grid;
-        currentAutomatonTexture = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{activeLevel.name}.png");
+        currentAutomatonTexture = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{activeLevel.name}");
         EntityFactory.SetRegistry(_registry);
         EntityFactory.SetEntityPools(entityPools);
         LevelAdapter.LoadLevel(activeLevel, gridView, true);

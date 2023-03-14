@@ -1275,10 +1275,10 @@ namespace Helpers
 
     public static class Other
     {
-        public static void SaveTexture(Texture2D texture, string path = "/TextureOutputs", string name = "TextureOutput")
+        public static void SaveTexture(Texture2D texture, string path = Constants.Strings.RENDERED_TEXTURES_PATH, string name = "TextureOutput")
         {
             byte[] bytes = texture.EncodeToPNG();
-            var dirPath = Application.dataPath + path;
+            var dirPath = Application.dataPath + "/Resources" +path;
             if (!System.IO.Directory.Exists(dirPath))
             {
                 System.IO.Directory.CreateDirectory(dirPath);
@@ -1295,12 +1295,17 @@ namespace Helpers
         
         public static Texture2D LoadTexture(string path)
         {
-            var dirPath = Application.dataPath + path;
+            /*var dirPath = Application.dataPath + path;
             if (!System.IO.File.Exists(dirPath)) throw new FileNotFoundException($"Texture can not found in {dirPath}");
             Texture2D tex = new (1, 1);
             var bytes = File.ReadAllBytes(dirPath);
-            tex.LoadImage(bytes);
-            return tex;
+            tex.LoadImage(bytes);*/
+            return Resources.Load<Texture2D>(path);
+        }
+
+        public static Texture2D[] LoadAllTextures(string path)
+        {
+            return Resources.LoadAll<Texture2D>(path);
         }
     }
     

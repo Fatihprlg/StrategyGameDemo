@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsViewModel : ScreenElement
@@ -47,4 +48,6 @@ public class SettingsViewModel : ScreenElement
         audioOn?.SetActive(soundState);
         audioOff?.SetActive(!soundState);
     }
+
+    public void ReturnButton() => SceneController.Instance.RestartScene();
 }

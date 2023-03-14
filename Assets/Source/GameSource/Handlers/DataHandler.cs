@@ -16,6 +16,7 @@ public class DataHandler : MonoBehaviour, IInitializable
         Tutorial = new TutorialDataModel().Load();
         Level = new LevelDataModel().Load();
         isInitialized = true;
+        //SceneController.Instance.OnSceneUnload.AddListener((SceneModel)=>SaveDatas());
     }
 
     internal void ClearAllData()

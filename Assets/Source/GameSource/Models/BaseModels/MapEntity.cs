@@ -14,8 +14,7 @@ public class MapEntity : MonoBehaviour
     [SerializeField] private MapEntityViewModel _entityViewModel;
     [SerializeField] private BoxCollider _collider;
     [SerializeField] private MapEntityBehaviour[] behaviours;
-    
-    
+
     public void SetData(MapEntityData entityData, Teams _team, int health = -1)
     {
         data = entityData;
@@ -33,10 +32,9 @@ public class MapEntity : MonoBehaviour
 
     public void DestroyEntity()
     {
-        GridHelper.DestructItemOnGrid(data.width, data.height, Position, GridHandler.Grid);
+        GridHandler.RemoveEntityOnGrid(this);
         gameObject.SetActive(false);
     }
-
 
     public T TryGetEntityBehaviour<T>() where T : MapEntityBehaviour
     {

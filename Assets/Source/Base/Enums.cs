@@ -12,7 +12,7 @@ public enum CellTypes
 
 public enum Teams
 {
-    Blue,
+    Green,
     Red,
-    Green
+    Blue
 }

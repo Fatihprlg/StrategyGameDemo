@@ -23,7 +23,6 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
         this.Inject();
         HandleDontDestroy();
         currentScene = mainScene;
-        //LoadScene(mainScene);
     }
 
     public void NextScene()
@@ -39,7 +38,6 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
         StartCoroutine(LoadAsynchronously(scene));
     }
 
-    [EditorButton]
     public void RestartScene()
     {
         LoadScene(currentScene);
@@ -48,10 +46,10 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
     
     private IEnumerator LoadAsynchronously(SceneModel scene)
     {
-        
         float timer = 0f;
         float minLoadTime = loadingScreen.MinLoadTime;
         float displayedProgress = 0;
+        print($"Scene loading: {scene.sceneField}");
         loadingScreen.UpdateLoadingBar(0);
         DOTween.To(() => displayedProgress, (a) => displayedProgress = a, .9f, minLoadTime).OnUpdate(() =>
         {

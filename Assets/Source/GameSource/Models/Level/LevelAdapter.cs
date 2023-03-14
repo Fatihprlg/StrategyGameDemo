@@ -7,7 +7,7 @@ public static class LevelAdapter
     public static List<MapEntity> LoadLevel(LevelModel level, GridViewModel gridView, bool editorMode = false)
     {
         ClearScene();
-        Texture2D tex = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{level.name}.png");
+        Texture2D tex = Helpers.Other.LoadTexture($"{Constants.Strings.RENDERED_TEXTURES_PATH}{level.name}");
         gridView.SetGridView(tex);
         if(!editorMode)
         {

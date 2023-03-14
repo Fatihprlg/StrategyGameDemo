@@ -15,7 +15,8 @@ public class MapsView : ScreenElement
     {
         this.Inject();
         RectTransform rectTransform = GetComponent<RectTransform>();
-        var files = System.IO.Directory.GetFiles(
+        var textures = Helpers.Other.LoadAllTextures(Constants.Strings.RENDERED_TEXTURES_PATH);
+        /*var files = System.IO.Directory.GetFiles(
             $"{Application.dataPath}{Constants.Strings.RENDERED_TEXTURES_PATH}", "*.png").ToList();
         files.RemoveAt(0);
         var textures = new List<Texture2D>();
@@ -25,10 +26,10 @@ public class MapsView : ScreenElement
                 Constants.Strings.RENDERED_TEXTURES_PATH.Replace("/", ""));
             Texture2D textureOnPath = Helpers.Other.LoadTexture($"/{path}");
             textures.Add(textureOnPath);
-        }
+        }*/
         
         float left = -rectTransform.rect.width * .5f;
-        for (int index = 0; index < textures.Count; index++)
+        for (int index = 0; index < textures.Length; index++)
         {
             MapSelectionVisual visual = Instantiate(_mapSelectionVisualPrefab, _scrollRect);
             Vector2 childPos = new()

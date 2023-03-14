@@ -1,13 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapEntitiesController : ControllerBase
 {
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private LayerMask entityLayerMask;
+    [Dependency] private GameController _gameController;
     private Ray leftClickRay;
     private Ray rightClickRay;
     private MapEntity selectedEntity;
-    
+    private List<MapEntity> enemyEntities;
+    private List<MapEntity> allyEntities;
+    private Teams allyTeam;
+
+    public override void Initialize()
+    {
+        this.Inject();
+        allyTeam = PlayerDataModel.Data.PlayerTeam;
+        EventManager.OnEntityPlacedOnMap.AddListener(OnEntityPlacedOnMap);
+        EventManager.OnMapEntityDestroyed.AddListener(OnEntityDestroyed);
+    }
+
     public override void ControllerUpdate(GameStates currentState)
     {
         if(currentState != GameStates.Game) return;
@@ -26,7 +39,7 @@ public class MapEntitiesController : ControllerBase
 
     public void OnRightClick()
     {
-        if(!selectedEntity) return;
+        if(!selectedEntity || _inputManager.IsPointerOverUIElement()) return;
         MovementBehaviour movement = selectedEntity.TryGetEntityBehaviour<MovementBehaviour>();
         AttackBehaviour attack = selectedEntity.TryGetEntityBehaviour<AttackBehaviour>();
         rightClickRay =CameraController.MainCamera.ScreenPointToRay(_inputManager.RightPointerDownPosition);
@@ -54,6 +67,36 @@ public class MapEntitiesController : ControllerBase
     {
         EventManager.OnMapEntityDeselected?.Invoke(selectedEntity);
         selectedEntity = null;
+    }
+
+    private void OnEntityPlacedOnMap(MapEntity entity)
+    {
+        if(entity.Team == allyTeam)
+            allyEntities.Add(entity);
+        else
+            enemyEntities.Add(entity);
+    }
+
+    private void OnEntityDestroyed(MapEntity entity)
+    {
+        if (entity.Team == allyTeam)
+        {
+            allyEntities.Remove(entity);
+            if (allyEntities.Count == 0)
+            {
+                _gameController.EndState(false);
+            }
+        }
+        else
+        {
+            enemyEntities.Remove(entity);
+            if (enemyEntities.Count == 0)
+            {
+                _gameController.EndState(true);
+            }
+            //TODO: Give notification when any team destroyed
+        }
+        
     }
     
 }

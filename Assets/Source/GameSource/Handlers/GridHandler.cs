@@ -22,6 +22,7 @@ public class GridHandler : MonoBehaviour
     {
         GridHelper.PlaceItemOnGrid(mapEntityData.Data.width,mapEntityData.Data.height, mapEntityData.Position, Grid);
         EntitiesOnGrid.Add(mapEntityData);
+        EventManager.OnEntityPlacedOnMap?.Invoke(mapEntityData);
     } 
 
     public static void RemoveEntityOnGrid(MapEntity mapEntityData)
@@ -36,23 +37,20 @@ public class GridHandler : MonoBehaviour
         {
             GridHelper.PlaceItemOnGrid(mapEntityData.Data.width,mapEntityData.Data.height, mapEntityData.Position, Grid);
             EntitiesOnGrid.Add(mapEntityData);
+            EventManager.OnEntityPlacedOnMap?.Invoke(mapEntityData);
         }
     }
 
     private void OnDrawGizmos()
     {
-        if (Grid is { Length: > 0 })
+        if (Grid is not { Length: > 0 }) return;
+        foreach (CellModel cellModel in Grid)
         {
-            foreach (CellModel cellModel in Grid)
-            {
-                Gizmos.color = !cellModel.isEmpty || cellModel.CellType == CellTypes.NotWalkable
-                    ? Color.red
-                    : Color.green;
-                Gizmos.DrawWireSphere(GridHelper.GetCellWorldPosition(cellModel.Position.x, cellModel.Position.y), .1f);
-            }
+            Gizmos.color = !cellModel.isEmpty || cellModel.CellType == CellTypes.NotWalkable
+                ? Color.red
+                : Color.green;
+            Gizmos.DrawWireSphere(GridHelper.GetCellWorldPosition(cellModel.Position.x, cellModel.Position.y), .1f);
         }
     }
 
-
-    
 }

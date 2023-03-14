@@ -16,6 +16,7 @@ public class DamageableBehaviour : MapEntityBehaviour
         if (isDead)
         {
             _attachedEntity.DestroyEntity();
+            EventManager.OnMapEntityDestroyed?.Invoke(_attachedEntity);
         }
         return isDead;
     }

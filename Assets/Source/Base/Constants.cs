@@ -9,7 +9,7 @@ namespace Constants
         public const string LEVELS_PATH = "Assets/GameAssets/Levels/Levels.json";
         public const string SAMPLE_DATA_MODEL_PATH = "/Source/Base/Models/DataModels/SampleDataModel.cs";
         public const string NEW_DATA_MODEL_PATH = "/Source/Base/Models/DataModels/";
-        public const string RENDERED_TEXTURES_PATH = "/RenderedTexturesOutput/";
+        public const string RENDERED_TEXTURES_PATH = "RenderedTexturesOutput/";
         public const string REGISTRY_PATH = "Assets/Scriptables/Registry.asset";
         public const string WALKABLE_REF_PATH = "Assets/GameAssets/UI/Grid/Walkable.png";
         public const string NON_WALKABLE_REF_PATH = "Assets/GameAssets/UI/Grid/NonWalkable.png";
