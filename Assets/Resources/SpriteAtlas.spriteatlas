@@ -32,22 +32,56 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 8855d32cde0584ef79e1acbc4b8c3548, type: 3}
+    - {fileID: 102900000, guid: 5e94ff5daf322467896fb83a97910369, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: bf90087033575cd4fb40f5aca77d41d9, type: 3}
+  - {fileID: 21300000, guid: 93c93e80f179c4cae911a48ab2fc913b, type: 3}
+  - {fileID: 21300000, guid: 12cfc2b0181f64634bb2c971f1562978, type: 3}
+  - {fileID: 21300000, guid: fb4ddd419e9fb4bcd8d3c4ded642e4f4, type: 3}
+  - {fileID: 21300000, guid: 9a7976714d40049be9d58d49c442c7e9, type: 3}
+  - {fileID: 21300000, guid: 386e4672c7324450b867de0e136f6374, type: 3}
   - {fileID: 21300000, guid: 28240392d09264295a82bd9c2f1d1f8d, type: 3}
+  - {fileID: 21300000, guid: ad417c53849134a8cb9af3848f17cd77, type: 3}
+  - {fileID: 21300000, guid: aa843f151439efb41b795e0b1a3bfa5e, type: 3}
+  - {fileID: 21300000, guid: 0972555577dae4776a602b0ce67c77f4, type: 3}
+  - {fileID: 21300000, guid: c0947046604294781a54818d5efaa1ea, type: 3}
   - {fileID: 21300000, guid: 5c9c0dc6fd26c41a1b9391f9eef6948f, type: 3}
+  - {fileID: 21300000, guid: e686f207e5a3e460493249584106b731, type: 3}
+  - {fileID: 21300000, guid: e4dcfb1881cb844d59876a5a09306469, type: 3}
+  - {fileID: 21300000, guid: 7760f839547ad964fb38275cf87c881d, type: 3}
+  - {fileID: 21300000, guid: e0c60779c9ad14104a26ff569c139f15, type: 3}
+  - {fileID: 21300000, guid: 663b258a0adedc0419fd45346ec25ede, type: 3}
   - {fileID: 21300000, guid: 4c6e3cfaaad314a3090aebd067f16f56, type: 3}
   - {fileID: 21300000, guid: 9f939c6b797544888828987341b616b4, type: 3}
+  - {fileID: 21300000, guid: f1c12a9b376bbb14bba8bd729b4cf1d8, type: 3}
+  - {fileID: 21300000, guid: a4771f2cf68494470ab5d3d0bb83abad, type: 3}
   - {fileID: 21300000, guid: b4c1e38e5d9f2440c9f248b170045af8, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Btn_MainButton_Orange
+  - Btn_OtherButton_Square05
+  - Btn_OtherButton_Square07
+  - Btn_OtherButton_Square06
+  - Btn_OtherButton_Square08
+  - setting
   - PowerPlant
+  - back
+  - Btn_MainButton_Sky
+  - Btn_OtherButton_Polygon02
+  - Frame_ItemFrame03_f
   - soldier2
+  - NonWalkable
+  - Walkable
+  - Btn_MainButton_Red
+  - Btn_OtherButton_Square04
+  - Btn_OtherButton_Hexagon01_Red
   - soldier3
   - barracks
+  - Btn_MainButton_Green
+  - Frame_ItemFrame03_Navy
   - soldier1
   m_RenderDataMap: {}
   m_Tag: SpriteAtlas

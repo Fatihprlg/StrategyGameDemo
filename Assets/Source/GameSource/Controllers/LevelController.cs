@@ -1,8 +1,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
-using System;
 using UnityEngine.Events;
-using System.Collections.Generic;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,7 +11,6 @@ public class LevelController : MonoBehaviour, IInitializable
     public bool initializeOnAwake;
     public int forceLevelIndex = -1;
     public LevelModel activeLevel;
-    public int maxLevelCount => levelModels.list.Count;
     [SerializeField] private Object levels;
     [SerializeField] private MultiplePoolModel entityPools;
     [SerializeField] private Registry entityRegistry;
@@ -57,18 +55,10 @@ public class LevelController : MonoBehaviour, IInitializable
 
         LoadLevelHelper(levelIndex);
     }
-
-    public void NextLevel()
-    {
-        var levelIndex = PlayerDataModel.Data.LevelIndex + 1;
-        if (levelIndex >= levelModels.list.Count) levelIndex = 0;
-        PlayerDataModel.Data.Level = levelIndex + 1;
-        PlayerDataModel.Data.LevelIndex = levelIndex;
-        _sceneController.RestartScene();
-    }
-
     public void ReplayLevel()
     {
+        LevelEntityDataList save =LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == PlayerDataModel.Data.LevelIndex);
+        if (save is not null) LevelDataModel.Data.levelEntityDatas.Remove(save);
         _sceneController.RestartScene();
     }
 

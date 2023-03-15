@@ -17,6 +17,8 @@ public class MapEntitiesController : ControllerBase
     {
         this.Inject();
         allyTeam = PlayerDataModel.Data.PlayerTeam;
+        allyEntities = new List<MapEntity>();
+        enemyEntities = new List<MapEntity>();
         EventManager.OnEntityPlacedOnMap.AddListener(OnEntityPlacedOnMap);
         EventManager.OnMapEntityDestroyed.AddListener(OnEntityDestroyed);
     }

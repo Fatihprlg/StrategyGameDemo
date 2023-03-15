@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BuildingConstructor : MonoBehaviour, IInitializable
 {
+    [SerializeField] private int buildingOverlapOffset;
     [SerializeField] private SpriteRenderer ghost;
     [SerializeField] private InputManager _inputManager;
     private Vector2Int gridSize;
@@ -63,7 +64,7 @@ public class BuildingConstructor : MonoBehaviour, IInitializable
     {
         Vector2Int location = GridHelper.WorldToGridCoordinates(ghost.transform.position, buildingToConstruct.width, buildingToConstruct.height, gridSize);
         isLocationAvailable = GridHelper.CheckOverlappingAreaIsAvailable(buildingToConstruct.width,
-            buildingToConstruct.height, location, GridHandler.Grid);
+            buildingToConstruct.height, location, GridHandler.Grid, buildingOverlapOffset);
         ghost.color = isLocationAvailable && !isHoveringExitButton ? Color.white : Color.red;
     }
     

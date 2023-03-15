@@ -22,7 +22,8 @@ public class PoolItemModel : ItemModel<PoolItemDataModel>
             Position = gridPos,
             width = entityData.Data.width,
             height = entityData.Data.height,
-            guid = entityData.Data.Guid
+            guid = entityData.Data.Guid,
+            team = entityData.Team
         };
         return dataModel;
     }

@@ -3,11 +3,43 @@ using UnityEngine;
 
 public static class GridHelper
 {
-    public static bool CheckOverlappingAreaIsAvailable(int width, int height, Vector2Int startPosition, CellModel[,] grid)
+
+    public static IEnumerable<CellModel> GetPerimeterOfArea(int width, int height, Vector2Int startPosition, CellModel[,] grid)
     {
-        for (int i = startPosition.x; i < startPosition.x + width; i++)
+        var perimeterCells = new CellModel[(2 * (width + height)) + 4];
+        int startX = startPosition.x - 1;
+        int startY = startPosition.y - 1;
+        int endX = startPosition.x + width + 1;
+        int endY = startPosition.y + height + 1;
+        int cellIndex = 0;
+        int xLen = grid.GetLength(0);
+        int yLen = grid.GetLength(1);
+        for (int i = startX; i < endX; i++)
         {
-            for (int j = startPosition.y; j < startPosition.y + height; j++)
+            for (int j = startY; j < endY; j++)
+            {
+                if (IsValidPos(i, j, xLen, yLen))
+                {
+                    perimeterCells[cellIndex] = grid[i, j];
+                }
+
+                cellIndex++;
+                if (i != startX && i != endX - 1 && j != endY - 1) j = endY - 2;
+            }
+        }
+
+        return perimeterCells;
+    }
+    
+    public static bool CheckOverlappingAreaIsAvailable(int width, int height, Vector2Int startPosition, CellModel[,] grid, int offset = 0)
+    {
+        int startX = Mathf.Max(0, startPosition.x - offset);
+        int startY = Mathf.Max(0, startPosition.y - offset);
+        int endX = Mathf.Min(grid.GetLength(0), startPosition.x + width + offset);
+        int endY = Mathf.Min(grid.GetLength(1), startPosition.y + height + offset);
+        for (int i = startX; i < endX; i++)
+        {
+            for (int j = startY; j < endY; j++)
             {
                 if (!grid[i, j].isEmpty || grid[i,j].CellType == CellTypes.NotWalkable) return false;
             }
@@ -44,10 +76,11 @@ public static class GridHelper
         return GetUnitWorldPosition((int)gridLoc.x, (int)gridLoc.y, width, height);
     }
     
-    public static Vector2Int WorldToGridCoordinates(Vector3 worldPos, Vector2Int gridSize)
+    public static Vector2Int WorldToGridCoordinates(Vector3 worldPos, CellModel[,] grid)
     {
         if (worldPos.x < 0) worldPos.x = 0;
         if (worldPos.y < 0) worldPos.y = 0;
+        Vector2Int gridSize = new (grid.GetLength(0), grid.GetLength(1));
         Vector2Int gridPos = new()
         {
             x = Mathf.FloorToInt(worldPos.x / Constants.Numerical.CELL_SCALE_AS_UNIT),
@@ -116,7 +149,7 @@ public static class GridHelper
     public static CellModel GetCellOnPosition(Vector3 position, CellModel[,]grid)
     {
         Vector2Int gridSize = new(grid.GetLength(0), grid.GetLength(1));
-        Vector2Int cellPos = WorldToGridCoordinates(position, gridSize);
+        Vector2Int cellPos = WorldToGridCoordinates(position, grid);
         return grid[cellPos.x, cellPos.y];
     }
     
@@ -152,7 +185,8 @@ public static class GridHelper
                 x = mapEntity.Position.x,
                 y = mapEntity.Position.y,
                 poolIndex = mapEntity.transform.parent.GetSiblingIndex(),
-                health = mapEntity.CurrentHealth
+                health = mapEntity.CurrentHealth,
+                team = mapEntity.Team
             };
             items.Add(item);
         }

@@ -1,22 +1,18 @@
+using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
 
 public class DataHandler : MonoBehaviour, IInitializable
 {
-    public SettingsDataModel Setting;
     public PlayerDataModel Player;
-    public TutorialDataModel Tutorial;
     public LevelDataModel Level;
     private bool isInitialized;
     public void Initialize()
     {
-        Setting = new SettingsDataModel().Load();
         Player = new PlayerDataModel().Load();
-        Tutorial = new TutorialDataModel().Load();
         Level = new LevelDataModel().Load();
         isInitialized = true;
-        //SceneController.Instance.OnSceneUnload.AddListener((SceneModel)=>SaveDatas());
     }
 
     internal void ClearAllData()
@@ -39,8 +35,6 @@ public class DataHandler : MonoBehaviour, IInitializable
     {
         if(!isInitialized) return;
         PlayerDataModel.Data.Save();
-        TutorialDataModel.Data.Save();
-        SettingsDataModel.Data.Save();
         LevelEntityDataList datas = new ()
         {
             levelIndex = PlayerDataModel.Data.LevelIndex,
@@ -60,4 +54,8 @@ public class DataHandler : MonoBehaviour, IInitializable
         }
     }
 
+    private void OnDisable()
+    {
+        SaveDatas();
+    }
 }

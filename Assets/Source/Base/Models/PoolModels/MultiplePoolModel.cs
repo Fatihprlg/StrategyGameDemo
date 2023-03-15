@@ -16,6 +16,11 @@ public sealed class MultiplePoolModel : MonoBehaviour
         return pools.GetRandom().GetDeactiveItem<T>();
     }
 
+    public void AddItemToPool(GameObject obj, int poolIndex)
+    {
+        pools[poolIndex].AddToPool(obj);
+    }
+
     [EditorButton]
     public void GetPools()
     {
