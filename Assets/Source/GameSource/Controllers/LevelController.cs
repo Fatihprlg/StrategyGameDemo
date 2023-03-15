@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-public class LevelController : MonoBehaviour, IInitializable
+public class LevelController : ControllerBase
 {
     public bool initializeOnAwake;
     public int forceLevelIndex = -1;
@@ -26,7 +26,7 @@ public class LevelController : MonoBehaviour, IInitializable
         Init();
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         if (initializeOnAwake) return;
         Init();
@@ -40,11 +40,20 @@ public class LevelController : MonoBehaviour, IInitializable
 #if UNITY_EDITOR
         GetLevels();
 #endif
+
         _sceneController = SceneController.Instance;
         DeserializeLevels();
         activeLevel = null;
+    }
+
+    public override void OnStateChanged(GameStates state)
+    {
+        if (state == GameStates.End)
+            EventManager.OnLevelEnded?.Invoke();
+
+        if (state != GameStates.Game) return;
         LoadLevel(forceLevelIndex >= 0 ? forceLevelIndex : PlayerDataModel.Data.LevelIndex);
-        _cameraController.SetGridHalfSize(activeLevel.grid.GetLength(0)/2);
+        _cameraController.SetGridHalfSize(activeLevel.grid.GetLength(0) / 2);
     }
 
     private void LoadLevel(int levelIndex)
@@ -65,6 +74,7 @@ public class LevelController : MonoBehaviour, IInitializable
     #region UTILS
     private void DeserializeLevels()
     {
+        Debug.Log(levels.ToString());
         levelModels = JsonHelper.LoadJson<LevelList>(levels.ToString());
     }
 
@@ -85,7 +95,7 @@ public class LevelController : MonoBehaviour, IInitializable
         GridHandler.InitializeGrid(activeLevel.grid);
         var placedEntities = LevelAdapter.LoadLevel(activeLevel, gridView);
         GridHandler.PlaceEntitiesOnGrid(placedEntities.ToArray());
-        onLevelLoaded?.Invoke();
+        EventManager.OnLevelLoaded?.Invoke();
     }
 
     private void ClearScene()

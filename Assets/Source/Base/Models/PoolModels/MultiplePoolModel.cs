@@ -21,6 +21,7 @@ public sealed class MultiplePoolModel : MonoBehaviour
         pools[poolIndex].AddToPool(obj);
     }
 
+ #if UNITY_EDITOR
     [EditorButton]
     public void GetPools()
     {
@@ -38,6 +39,7 @@ public sealed class MultiplePoolModel : MonoBehaviour
             }
         }
     }
+#endif
 
     private void Reset()
     {

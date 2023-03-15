@@ -9,12 +9,14 @@ public class ProductionMenuViewModel : ScreenElement
     [SerializeField] private BuildingUIView _buildingUIPrefab;
     [SerializeField] private RectTransform _layoutGroup;
     [SerializeField] private InfiniteScrollView _infiniteScrollView;
-    
-    public override void Initialize()
+
+    public void InitScrollView(GameStates state)
     {
-        base.Initialize();
-        ListBuildings(_infiniteScrollView.GetNecessaryElementCount());
-        _infiniteScrollView.Init();
+        if(state == GameStates.Game)
+        {
+            ListBuildings(_infiniteScrollView.GetNecessaryElementCount());
+            _infiniteScrollView.Init();
+        }
     }
     
     private void ListBuildings(int atLeast)

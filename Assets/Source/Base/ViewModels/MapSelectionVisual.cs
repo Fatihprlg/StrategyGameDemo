@@ -16,7 +16,10 @@ public class MapSelectionVisual : MonoBehaviour
         mapImage.sprite = sprite;
         mapName.text = $"Map {lvIndex+1}";
         mapButton.onClick.RemoveAllListeners();
-        mapButton.onClick.AddListener(() =>PlayerDataModel.Data.LevelIndex = lvIndex);
+        mapButton.onClick.AddListener(() => 
+        {
+            PlayerDataModel.Data.LevelIndex = lvIndex;
+        });
         mapButton.onClick.AddListener(ClearOldSave);
         mapButton.onClick.AddListener(onClick);
     }
@@ -29,6 +32,9 @@ public class MapSelectionVisual : MonoBehaviour
     private static void ClearOldSave()
     {
         LevelEntityDataList save =LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == PlayerDataModel.Data.LevelIndex);
-        if (save is not null) LevelDataModel.Data.levelEntityDatas.Remove(save);
+        if (save is not null)
+        {
+            LevelDataModel.Data.levelEntityDatas.Remove(save);
+        }
     }
 }

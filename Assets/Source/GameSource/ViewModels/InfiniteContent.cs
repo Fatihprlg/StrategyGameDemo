@@ -27,13 +27,10 @@ public class InfiniteContent : MonoBehaviour
         
         for (int i = 0; i < rtChildren.Length; i++)
         {
-            Vector2 childPos = rtChildren[i].localPosition;
+            Vector2 childPos = rtChildren[i].anchoredPosition;
             childPos.x = 0;
             childPos.y = topY - posOffset - (i - 1) * (elementHeight + spacing);// first one for upper hidden position
-            rtChildren[i].localPosition = childPos;
-            Vector2 anchoredPos = rtChildren[i].anchoredPosition;
-            anchoredPos.x = 0;
-            rtChildren[i].anchoredPosition = anchoredPos;
+            rtChildren[i].anchoredPosition = childPos;
             
             
         }

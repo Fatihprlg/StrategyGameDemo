@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14555515dec64cd8b46cb55606b66832, type: 3}
   m_Name: Barracks
   m_EditorClassIdentifier: 
+  _guid: 447d12eb080934acca1f02005cce8e31
   visual: {fileID: 21300000, guid: 9f939c6b797544888828987341b616b4, type: 3}
   name: Barracks
   health: 100

@@ -5,7 +5,7 @@ public class DamageableBehaviour : MapEntityBehaviour
     public bool isDead { get; private set; }
     public Teams GetTeam => _attachedEntity.Team;
     public Vector2Int GetPosition() => _attachedEntity.Position;
-    
+    public Vector2Int GetSize() => new Vector2Int(_attachedEntity.Data.width, _attachedEntity.Data.height);
     public bool DealDamage(int damage)
     {
         if (!isActiveAndEnabled) return true;

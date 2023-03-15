@@ -8,8 +8,28 @@
         {
             Vector3 start = center - Vector2.one * range;
             Vector3 end = center + Vector2.one * range;
-            return IsPointBetweenTwoVector(start, end, point);
+            bool isInRange = (point.x >= start.x && point.x <= end.x) && (point.y >= start.y && point.y <= end.y);
+            return isInRange;
         }
+        public static bool IsAreaInAreaRange(int width, int height, Vector2 point, Vector2 center, float range)
+        {
+            bool isInRange = false;
+            for (int i = (int)point.x; i < point.x + width; i++)
+            {
+                for (int j = (int)point.y; j < point.y + height; j++)
+                {
+                    if (IsPointInAreaRange(new Vector2(i, j), center, range))
+                    {
+                        isInRange = true;
+                        break;
+                    }
+                }
+                if (isInRange) break;
+            }
+            return isInRange;
+        }
+
+
 
         public static Vector3 ScreenToWorldPoint(Vector2 point, Camera camera, float distanceFromCamera = 10)
         {

@@ -39,7 +39,7 @@ public class AttackBehaviour : MapEntityBehaviour
         bool isTargetDead = target.isDead;
         while (!isTargetDead)
         {
-            CheckRange(target.GetPosition());
+            CheckRange(target.GetPosition(), target.GetSize().x, target.GetSize().y);
             if (!isTargetInRange)
             {
                 if (!_movementBehaviour)
@@ -65,17 +65,17 @@ public class AttackBehaviour : MapEntityBehaviour
             targetPosOnLastFrame = target.GetPosition();
             return;
         }
-        if (CheckRange(target.GetPosition()))
+        if (CheckRange(target.GetPosition(), target.GetSize().x, target.GetSize().y))
         {
             _movementBehaviour.ResetMovement();
         }
         targetPosOnLastFrame = target.GetPosition();
     }
     
-    private bool CheckRange(Vector2Int targetPos)
+    private bool CheckRange(Vector2Int targetPos, int width, int height)
     {
         var range = ((UnitData)_attachedEntity.Data).range;
-        isTargetInRange = Helpers.Vectors.IsPointInAreaRange(targetPos, _attachedEntity.Position, range);
+        isTargetInRange = Helpers.Vectors.IsAreaInAreaRange(width, height, targetPos, _attachedEntity.Position, range);
         return isTargetInRange;
     }
 

@@ -3,7 +3,10 @@ guid: bcd61630461314cbc9bca68ae9bd538d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - levels: {fileID: 4900000, guid: 59ccda69b091d4bbf84d149321370ba1, type: 3}
+  - entityPools: {instanceID: 0}
+  - entityRegistry: {fileID: 11400000, guid: 6b0fc9d3a6db44a87b4f952145942e92, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

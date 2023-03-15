@@ -65,17 +65,17 @@ public class PoolModel : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     [EditorButton]
     public void InitializeOnEditor()
     {
-#if UNITY_EDITOR
         Undo.RecordObject(this, "GetItems");
         if (items != null)
             items.Clear();
 
         getItemsFromChildren();
-#endif
     }
+#endif
 
     private void Reset()
     {

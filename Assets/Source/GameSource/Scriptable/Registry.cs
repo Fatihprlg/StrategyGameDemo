@@ -9,6 +9,10 @@ public class Registry : ScriptableObject
 
     public SerializableScriptableObject FindByGuid(string guid)
     {
-        return _descriptors.FirstOrDefault(desc => desc.Guid == guid);
+        foreach (var item in _descriptors)
+        {
+            if (item.Guid == guid) return item;
+        }
+        return default;
     }
 }
