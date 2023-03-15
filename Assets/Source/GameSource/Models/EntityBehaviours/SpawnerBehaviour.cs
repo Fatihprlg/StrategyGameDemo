@@ -34,7 +34,7 @@ public class SpawnerBehaviour : MapEntityBehaviour
 
         foreach (CellModel cellModel in perimeter)
         {
-            if (cellModel.isEmpty) return cellModel.Position;
+            if (cellModel.isEmpty && cellModel.CellType == CellTypes.Walkable) return cellModel.Position;
         }
         
         return Vector2Int.one * -1;

@@ -148,7 +148,6 @@ public static class GridHelper
 
     public static CellModel GetCellOnPosition(Vector3 position, CellModel[,]grid)
     {
-        Vector2Int gridSize = new(grid.GetLength(0), grid.GetLength(1));
         Vector2Int cellPos = WorldToGridCoordinates(position, grid);
         return grid[cellPos.x, cellPos.y];
     }
