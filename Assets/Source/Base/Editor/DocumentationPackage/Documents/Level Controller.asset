@@ -20,65 +20,36 @@ MonoBehaviour:
     helper class when loading and saving partitions.
 
 '
-  fullDescription: 'The ''Level Controller'' class is responsible for saving, reading,
-    and creating sections in a ''json'' file of type ''Level Model''. To activate
-    objects on the stage in a section, their data should be added to the ''Level
-    Model'' class. The ''Level Controller'' uses the ''Level Adapter'' class as a
-    helper class when loading and saving partitions. This class contains functions
-    that are executed when saving or restoring objects in the scene.
-
-    To make
-    the editor window more user-friendly, buttons have been added for recording,
-    editing, loading, and cleaning the scene. Initially, there are two types of items
-    available: ''Pool Items'' and ''World Items''. These types are data classes derived
-    from the ''Item Data Model'' class.
-
-
-    {0}
-
-
-    The ''Pool Item Data Model''
-    activates the desired objects from the ''Multiple Pool'' models in the scene
-    at the saved positions. To register these objects, the ''Pool Item Model'' class
-    should be added to the objects that need to be registered in the scene. The ''Level
-    Adapter'' then takes the objects you have activated on the stage and adds their
-    data to the json file.
-
-    The ''World Item Data Model'' can be used for all
-    objects in the scene that are not in the object pool. To use it, the ''World
-    Item Model'' component must be added to the objects.
-
-
-    NOTE: LevelAdapter
-    takes only the objects in the scene, defined and active in the adapter while
-    saving the level. If you add a new object that you want to be saved in the LevelModel,
-    you must introduce it to the levelAdapter!
-
-
-    {1}
-
-
-    {2}
-
-
-    To load
-    an episode, you should press the ''Clear Scene'' button to clean the scene first.
-    Then, you can load one of the sections that were created before by entering the
-    section index that you want to load. After making the desired changes in this
-    section, you can press the ''Override Level'' button to overwrite the same section.
-    This way, desired changes can be made and saved in an existing section. If you
-    want to see the features of the active section, all information about this section
-    can be seen under the ''Active Level'' tab. The sections can be managed by calling
-    the functions mentioned in the code.
-
-
-    {3}
-
-'
+  fullDescription: "The 'Level Controller' class is responsible for saving, reading,
+    and creating sections in a 'json' file of type 'Level Model'. To activate objects
+    on the stage in a section, their data should be added to the 'Level Model' class.
+    The 'Level Controller' uses the 'Level Adapter' static class as a helper class
+    when loading and saving partitions. This class contains functions that are executed
+    when saving or restoring objects in the scene. \n\nTo make the editor window
+    more user-friendly, buttons have been added for recording, editing, loading,
+    and cleaning the scene. You can use \"My Game Lib/Level Editor\" window to use
+    Level Editor. For this game, level data restores PoolItemDataModel for datas
+    which are in level. Besides those level model stores the grid data created by
+    cellular automaton and grid view texture that based on that grid data. To create
+    new grid map, use Create Map With Cellular Automaton button.\n\n{0}\n\nThe 'Pool
+    Item Data Model' activates the desired objects from the 'Multiple Pool' models
+    in the scene at the saved positions. To register these objects, the 'Pool Item
+    Model' class should be added to the objects that need to be registered in the
+    scene. The 'Level Adapter' then takes the objects you have activated on the stage
+    and adds their data to the json file.\n\nNOTE: LevelAdapter takes only the objects
+    in the scene, defined and active in the adapter while saving the level. If you
+    add a new object that you want to be saved in the LevelModel, you must introduce
+    it to the levelAdapter!\n\nTo load a level, you should press the 'Clear Scene'
+    button to clean the scene first, If you forget this, do not worry, level editor
+    automatically handles it. Then, you can load one of the sections that were created
+    before by entering the section index that you want to load. After making the
+    desired changes in this section, you can press the 'Override Level' button to
+    override the same section. This way, desired changes can be made and saved in
+    an existing section. If you want to see the features of the active section, all
+    information about this section can be seen under the 'Active Level' tab. The
+    sections can be managed by calling the functions mentioned in the code.\n\n{1}\n"
   subPages:
   - {fileID: 11400000, guid: e06250c8d16a54d2ab5396aa73bf387d, type: 2}
   images:
-  - {fileID: 2800000, guid: c67c3b2c59ef4420ea558ffeb4782182, type: 3}
-  - {fileID: 2800000, guid: e3875516fed2e4d64a82fc939986855e, type: 3}
-  - {fileID: 2800000, guid: 3659522be3ce74f5e80a99fd098448a1, type: 3}
+  - {fileID: 2800000, guid: 9012dba8c2f43430ca31862bb5262c5e, type: 3}
   - {fileID: 2800000, guid: 9b3b445a7c860a44392328d4cc89d8f3, type: 3}

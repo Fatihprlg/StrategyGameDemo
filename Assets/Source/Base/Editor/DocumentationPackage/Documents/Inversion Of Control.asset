@@ -27,30 +27,37 @@ MonoBehaviour:
 
     To
     use this feature, the user needs to add the ''Context'' object and the ''Builder''
-    object to the scene. After this step, the builder automatically defines and stores
-    the ''MonoBase'' classes on the stage every time it ''recompiles''. The fields
-    that the user wants to ''inject'' in the code must be qualified as ''[Dependency]''.
-    To initialize the code or before using the dependency, the user can call the
-    ''extension'' method this.Inject(). If there is more than one instance of an
-    object in a scene and the user wants to get a specific one, he can get the reference
-    of the object instance he wants in the form of ''[Dependency("Game Object Name")]''.
+    object to the scene. (Or just easily use "My Game Lib/Set up IOC On Scene" button
+    in toolbar.) After this step, the builder automatically defines and stores the
+    classes on the scene every time it ''recompiles''. The classes that wanted to
+    be stored by builder, should be in one of defined assemblies that defind in IOCIncludedAssemblies
+    scriptable object. This object can be found in Resources/IOC/IOCIncludedAssemblies.asset
+    path.
+
+
+    The fields that the user wants to ''inject'' in the code must be
+    qualified as ''[Dependency]''. To initialize the code or before using the dependency,
+    the user can call the ''extension'' method this.Inject(). If there is more than
+    one instance of an object in a scene and the user wants to get a specific one,
+    he can get the reference of the object instance he wants in the form of ''[Dependency("Game
+    Object Name")]''.
 
 
 
     {0}
 
 
-    Create
-    a context and builder in scene for use it.
+    Create a context and builder in scene for
+    use it.
 
 
     {1}
 
 
-    After this step, you
-    need to add the [Dependency] attribute next to the files and properties you want
-    to inject in the code. After this step, where you initialize the code or before
-    using the dependency this.Inject(); Calling the extension method will suffice.
+    After this step, you need to add the [Dependency] attribute
+    next to the files and properties you want to inject in the code. After this step,
+    where you initialize the code or before using the dependency this.Inject(); Calling
+    the extension method will suffice.
 
 
     {2}

@@ -37,9 +37,6 @@ MonoBehaviour:
     It is the screen that appears while playing the game. Player money and chapter
     information are also displayed here and adjusted automatically.\n\tEnd Screen:
     It is the section end screen. If the player successfully completed the level,
-    it will show the 'Win Screen', otherwise it will trigger the 'Lose Screen' element.\n\tTutorial
-    Screen: It is the screen element that contains the tutorials added to the game.
-    It stays blank if no training is added."
-  subPages:
-  - {fileID: 11400000, guid: b25660341d4e2da43a1e8def74da2453, type: 2}
+    it will show the 'Win Screen', otherwise it will trigger the 'Lose Screen' element."
+  subPages: []
   images: []

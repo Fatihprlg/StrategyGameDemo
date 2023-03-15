@@ -31,8 +31,6 @@ MonoBehaviour:
     model', the user must enter the name of the new data model in the box above the
     'Create New Data Model' button and click the button. The new 'data model' must
     then be initialized like other models in the 'Data Handler' class and added to
-    the 'Save' function.\nThe 'GetMoney' button in the editor window can be used
-    to add money while testing. The amount of money to be added must be entered in
-    the box above the button and the button must be pressed.\n"
+    the 'Save' function.\n"
   subPages: []
   images: []

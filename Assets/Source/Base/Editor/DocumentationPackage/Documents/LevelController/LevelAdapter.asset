@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: LevelAdapter
   m_EditorClassIdentifier: 
   moduleName: Level Adapter
-  shortDescription: "Level Controller'a leveli y\xFCklemesi ve kaydetmesi i\xE7in
-    yard\u0131mc\u0131 olan s\u0131n\u0131f."
-  fullDescription: "LevelAdapter, LevelController'dan gerekli bilgileri al\u0131p
-    sahneyi d\xFCzenleyen ve kaydeden objedir. LevelController'\u0131n yard\u0131mc\u0131
-    objesi diyebiliriz. Sahnede Kaydedilmesi istenen objeler LevelModel'e eklendikten
-    sonra bu s\u0131n\u0131f i\xE7erisinde kay\u0131t ve geri \xE7a\u011F\u0131rma
-    i\u015Flemi yap\u0131lmal\u0131d\u0131r."
+  shortDescription: Class that helps the Level Controller to load and save the level.
+  fullDescription: The LevelAdapter is the object that receives the necessary information
+    from the LevelController and edits the scene and saves it. We can call it the
+    helper object of LevelController. After the objects that are desired to be registered
+    in the scene are added to the LevelModel, registration and recall must be performed
+    within this class.
   subPages: []
   images: []

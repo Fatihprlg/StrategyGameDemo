@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3b9290b04bb5434f8f7031419260349, type: 3}
-  m_Name: Particle Base Model
+  m_Name: Entity Behaviours
   m_EditorClassIdentifier: 
-  moduleName: Particle Base Model
-  shortDescription: --
-  fullDescription: This script, which should be given to particles, automatically
-    takes the Particle System component in the object it is given. It is used to
-    play, pause and initialize the Particle system.
+  moduleName: Entity Behaviours
+  shortDescription: 'Behaviour scripts that define a map entitiy''s single action
+    and execute it. '
+  fullDescription: Every behaviour does its own action. Behaviours assigned to an
+    entity and gives that object its own ability/behaviour.
   subPages: []
   images: []
