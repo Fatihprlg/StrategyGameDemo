@@ -8,12 +8,14 @@ public class DataHandler : MonoBehaviour, IInitializable
     public PlayerDataModel Player;
     public LevelDataModel Level;
     private bool isInitialized;
+    private bool currentLevelCompleted;
     public void Initialize()
     {
         Player = new PlayerDataModel().Load();
         Level = new LevelDataModel().Load();
         isInitialized = true;
         SceneController.Instance.OnSceneUnload.AddListener((scene) => SaveDatas());
+        EventManager.OnLevelEnded.AddListener(() => currentLevelCompleted = true);
     }
 
     internal void ClearAllData()
@@ -46,9 +48,10 @@ public class DataHandler : MonoBehaviour, IInitializable
             };
             LevelEntityDataList currentData = LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == datas.levelIndex);
             if (currentData is not null) LevelDataModel.Data.levelEntityDatas.Remove(currentData);
-            LevelDataModel.Data.levelEntityDatas.Add(datas);
+            if(!currentLevelCompleted)
+                LevelDataModel.Data.levelEntityDatas.Add(datas);
         }
-
+      
         LevelDataModel.Data.Save();
     }
 

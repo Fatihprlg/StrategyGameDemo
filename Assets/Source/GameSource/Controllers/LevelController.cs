@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 #endif
 
-public class LevelController : ControllerBase, IInitializable
+public class LevelController : ControllerBase
 {
     public bool initializeOnAwake;
     public int forceLevelIndex = -1;
@@ -26,7 +26,7 @@ public class LevelController : ControllerBase, IInitializable
         Init();
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         if (initializeOnAwake) return;
         Init();
@@ -48,6 +48,9 @@ public class LevelController : ControllerBase, IInitializable
 
     public override void OnStateChanged(GameStates state)
     {
+        if (state == GameStates.End)
+            EventManager.OnLevelEnded?.Invoke();
+
         if (state != GameStates.Game) return;
         LoadLevel(forceLevelIndex >= 0 ? forceLevelIndex : PlayerDataModel.Data.LevelIndex);
         _cameraController.SetGridHalfSize(activeLevel.grid.GetLength(0) / 2);

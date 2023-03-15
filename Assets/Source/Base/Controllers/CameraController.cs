@@ -50,6 +50,7 @@ public class CameraController : ControllerBase
     public void SetGridHalfSize(float size)
     {
         _halfGridSize = size;
+        ReArrangeOrthoSize();
     }
 
     public override void ControllerLateUpdate(GameStates currentState)

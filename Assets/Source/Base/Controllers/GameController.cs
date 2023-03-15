@@ -38,11 +38,6 @@ public class GameController : ControllerBase
     public void EndState(bool isPlayerWin)
     {
         IsPlayerWin = isPlayerWin;
-        LevelEntityDataList save = LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == PlayerDataModel.Data.LevelIndex);
-        if (save is not null)
-        {
-            LevelDataModel.Data.levelEntityDatas.Remove(save);
-        }
         ChangeState(GameStates.End);
     }
     

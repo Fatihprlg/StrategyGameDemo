@@ -11,6 +11,8 @@ public static class EventManager
     public static readonly UnityEvent<MapEntity> OnMapEntityDestroyed = new();
     public static readonly UnityEvent<MapEntity> OnEntityPlacedOnMap = new();
     public static readonly UnityEvent OnLevelLoaded = new();
+    public static readonly UnityEvent OnLevelEnded = new();
+
     public static readonly UnityEvent OnConstructionEnd = new();
     
     
