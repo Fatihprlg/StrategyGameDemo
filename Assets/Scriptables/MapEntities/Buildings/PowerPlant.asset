@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14555515dec64cd8b46cb55606b66832, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
+  _guid: 74d93d5fc820b4da6a0528c585ca9232
   visual: {fileID: 21300000, guid: 28240392d09264295a82bd9c2f1d1f8d, type: 3}
   name: Power Plant
   health: 50

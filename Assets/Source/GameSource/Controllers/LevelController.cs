@@ -40,6 +40,7 @@ public class LevelController : MonoBehaviour, IInitializable
 #if UNITY_EDITOR
         GetLevels();
 #endif
+
         _sceneController = SceneController.Instance;
         DeserializeLevels();
         activeLevel = null;
@@ -65,6 +66,7 @@ public class LevelController : MonoBehaviour, IInitializable
     #region UTILS
     private void DeserializeLevels()
     {
+        Debug.Log(levels.ToString());
         levelModels = JsonHelper.LoadJson<LevelList>(levels.ToString());
     }
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26895065757849caac98bbd7bfda3455, type: 3}
   m_Name: Soldier3
   m_EditorClassIdentifier: 
+  _guid: bb263e39fa32143f282e7cc0648ae305
   visual: {fileID: 21300000, guid: 4c6e3cfaaad314a3090aebd067f16f56, type: 3}
   name: Soldier 3
   health: 10

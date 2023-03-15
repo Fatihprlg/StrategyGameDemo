@@ -29,6 +29,7 @@ public static class EntityFactory
     public static MapEntity GetMapEntity(PoolItemDataModel itemData)
     {
         MapEntity entity = entityPools.GetDeactiveItem<MapEntity>(itemData.poolIndex);
+        Debug.Log(itemData);
         MapEntityData data = registeredItems.FindByGuid(itemData.guid) as MapEntityData;
         entity.SetData(data, itemData.team);
         entity.transform.position = GridHelper.GetUnitWorldPosition((int)itemData.Position.x, (int)itemData.Position.y, itemData.width, itemData.height);

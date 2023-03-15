@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class SerializableScriptableObject : ScriptableObject
 {
-    public string Guid { get; private set; }
+    public string Guid => _guid;
+    [SerializeField, HideInInspector]private string _guid;
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
         var path = UnityEditor.AssetDatabase.GetAssetPath(this);
-        Guid = UnityEditor.AssetDatabase.AssetPathToGUID(path);
+        _guid = UnityEditor.AssetDatabase.AssetPathToGUID(path);
     }
 #endif
 }

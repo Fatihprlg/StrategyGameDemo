@@ -70,6 +70,7 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
             }
             yield return null;
         }
+        Resources.UnloadUnusedAssets();
         loadingScreen.Hide();
         currentScene = scene;
         OnSceneLoad?.Invoke(currentScene);
