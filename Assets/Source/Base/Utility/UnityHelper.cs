@@ -8,7 +8,8 @@
         {
             Vector3 start = center - Vector2.one * range;
             Vector3 end = center + Vector2.one * range;
-            return IsPointBetweenTwoVector(start, end, point);
+            bool isInRange = (point.x >= start.x && point.x <= end.x) && (point.y >= start.y && point.y <= end.y);
+            return isInRange;
         }
 
         public static Vector3 ScreenToWorldPoint(Vector2 point, Camera camera, float distanceFromCamera = 10)

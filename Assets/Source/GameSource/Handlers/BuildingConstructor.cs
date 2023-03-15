@@ -20,8 +20,9 @@ public class BuildingConstructor : MonoBehaviour, IInitializable
     {
         EventManager.OnBuildingUISelected.AddListener(OnBuildingUISelected);
         EventManager.OnConstructionEnd.AddListener(Reset);
+        EventManager.OnLevelLoaded.AddListener(() => gridSize = new Vector2Int(GridHandler.Grid.GetLength(0), GridHandler.Grid.GetLength(1)));
         mainCam = CameraController.MainCamera; 
-        gridSize = new Vector2Int(GridHandler.Grid.GetLength(0), GridHandler.Grid.GetLength(1));
+
     }
 
     public void HoveringExitButton(bool hoverState) => isHoveringExitButton = hoverState;

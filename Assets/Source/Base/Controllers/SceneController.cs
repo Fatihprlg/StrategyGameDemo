@@ -74,6 +74,8 @@ public class SceneController : MonoSingleton<SceneController>, ICrossSceneObject
         loadingScreen.Hide();
         currentScene = scene;
         OnSceneLoad?.Invoke(currentScene);
+        OnSceneLoad.RemoveAllListeners();
+        OnSceneUnload.RemoveAllListeners();
         yield return null;
     }
 

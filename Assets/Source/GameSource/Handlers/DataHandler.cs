@@ -13,6 +13,7 @@ public class DataHandler : MonoBehaviour, IInitializable
         Player = new PlayerDataModel().Load();
         Level = new LevelDataModel().Load();
         isInitialized = true;
+        SceneController.Instance.OnSceneUnload.AddListener((scene) => SaveDatas());
     }
 
     internal void ClearAllData()
@@ -35,14 +36,19 @@ public class DataHandler : MonoBehaviour, IInitializable
     {
         if(!isInitialized) return;
         PlayerDataModel.Data.Save();
-        LevelEntityDataList datas = new ()
+        var entitiesOnGrid = GridHandler.GetAllItemsOnGrid();
+        if(entitiesOnGrid is not null)
         {
-            levelIndex = PlayerDataModel.Data.LevelIndex,
-            entityDatas = GridHandler.GetAllItemsOnGrid().ToLevelEntityDataList()
-        };
-        LevelEntityDataList currentData = LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == datas.levelIndex);
-        if (currentData is not null) LevelDataModel.Data.levelEntityDatas.Remove(currentData);
-        LevelDataModel.Data.levelEntityDatas.Add(datas);
+            LevelEntityDataList datas = new()
+            {
+                levelIndex = PlayerDataModel.Data.LevelIndex,
+                entityDatas = entitiesOnGrid.ToLevelEntityDataList()
+            };
+            LevelEntityDataList currentData = LevelDataModel.Data.levelEntityDatas.FirstOrDefault(d => d.levelIndex == datas.levelIndex);
+            if (currentData is not null) LevelDataModel.Data.levelEntityDatas.Remove(currentData);
+            LevelDataModel.Data.levelEntityDatas.Add(datas);
+        }
+
         LevelDataModel.Data.Save();
     }
 
@@ -54,8 +60,4 @@ public class DataHandler : MonoBehaviour, IInitializable
         }
     }
 
-    private void OnDisable()
-    {
-        SaveDatas();
-    }
 }
