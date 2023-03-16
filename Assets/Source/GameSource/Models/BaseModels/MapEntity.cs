@@ -30,6 +30,11 @@ public class MapEntity : MonoBehaviour
         }
     }
 
+    public void SetSelectedState(bool state)
+    {
+        _entityViewModel.SetSelectedUI(state);
+    }
+
     public void DestroyEntity()
     {
         GridHandler.RemoveEntityOnGrid(this);

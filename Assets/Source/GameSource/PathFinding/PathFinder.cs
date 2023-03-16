@@ -47,8 +47,8 @@ public static class PathFinder
                 if(adj == null) continue;
                 if (!adj.isEmpty || adj.CellType != CellTypes.Walkable)
                 {
-                    _closedList.Add(adj);
-                    continue;
+                        _closedList.Add(adj);
+                        continue;
                 }
                 
                 int tempG = currentNode.PathOptions.g + CalculateDistanceCost(currentNode, adj);

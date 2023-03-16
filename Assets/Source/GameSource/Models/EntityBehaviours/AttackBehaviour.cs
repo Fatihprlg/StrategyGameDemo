@@ -7,6 +7,7 @@ public class AttackBehaviour : MapEntityBehaviour
     private MovementBehaviour _movementBehaviour;
     private Coroutine attackCoroutine;
     private Vector2Int targetPosOnLastFrame;
+    private DamageableBehaviour currentTarget;
     private bool isTargetInRange;
     public override void Init(MapEntity attachedEntity)
     {
@@ -18,7 +19,9 @@ public class AttackBehaviour : MapEntityBehaviour
     {
         if(!isActiveAndEnabled) return;
         if(damageableTarget.GetTeam == _attachedEntity.Team) return;
+        if(damageableTarget == currentTarget) return;
         ResetAttack();
+        currentTarget = damageableTarget;
         attackCoroutine = StartCoroutine(AttackCoroutine(damageableTarget));
     }
 
@@ -55,6 +58,7 @@ public class AttackBehaviour : MapEntityBehaviour
         } 
 
         attackCoroutine = null;
+        currentTarget = null;
     }
 
     private void CheckRangeWhileMoving(DamageableBehaviour target)

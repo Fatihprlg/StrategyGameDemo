@@ -5,6 +5,7 @@ public class MapEntityViewModel : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer Icon;
     [SerializeField] private SpriteRenderer teamMark;
+    [SerializeField] private SpriteRenderer selectedUI;
     [SerializeField] private Transform healthBar;
     
     public void Init(MapEntityData data)
@@ -14,6 +15,11 @@ public class MapEntityViewModel : MonoBehaviour
         UpdateHealthBar(1);
     }
 
+    public void SetSelectedUI(bool state)
+    {
+        selectedUI.SetActiveGameObject(state);
+    }
+    
     public void UpdateHealthBar(float percentage)
     {
         Vector3 currentSize = healthBar.localScale;

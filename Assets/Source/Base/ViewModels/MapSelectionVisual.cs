@@ -19,6 +19,7 @@ public class MapSelectionVisual : MonoBehaviour
         mapButton.onClick.AddListener(() => 
         {
             PlayerDataModel.Data.LevelIndex = lvIndex;
+
         });
         mapButton.onClick.AddListener(ClearOldSave);
         mapButton.onClick.AddListener(onClick);

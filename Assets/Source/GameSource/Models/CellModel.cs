@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class CellModel
     public CellModel[] AdjacentCells { get; private set; }
     public CellTypes CellType { get; }
     public Vector2Int Position => new (x, y);
-    public bool isEmpty;
+    [NonSerialized]public bool isEmpty;
     private readonly int x;
     private readonly int y;
 

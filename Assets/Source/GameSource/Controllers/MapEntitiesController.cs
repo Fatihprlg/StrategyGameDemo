@@ -62,12 +62,15 @@ public class MapEntitiesController : ControllerBase
     {
         if(entity.Team != PlayerDataModel.Data.PlayerTeam) return;
         selectedEntity = entity;
+        selectedEntity.SetSelectedState(true);
         EventManager.OnMapEntitySelected?.Invoke(entity);
     }
 
     private void DeselectEntity()
     {
+        if(selectedEntity is null) return;
         EventManager.OnMapEntityDeselected?.Invoke(selectedEntity);
+        selectedEntity.SetSelectedState(false);
         selectedEntity = null;
     }
 
