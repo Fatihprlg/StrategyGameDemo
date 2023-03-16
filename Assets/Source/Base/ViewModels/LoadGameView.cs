@@ -13,11 +13,7 @@ public class LoadGameView : ScreenElement
             if(LevelDataModel.Data.levelEntityDatas.Count > i)
             {
                 loadButtons[i].interactable = true;
-                loadButtons[i].onClick.RemoveAllListeners();
-                loadButtons[i].onClick.AddListener(() =>
-                    PlayerDataModel.Data.LevelIndex = LevelDataModel.Data.levelEntityDatas[i].levelIndex);
-                loadButtons[i].onClick.AddListener(() =>_gameController.ChangeState(GameStates.Game));
-                loadButtons[i].SetText($"Level {i}");
+                loadButtons[i].SetText($"Map {LevelDataModel.Data.levelEntityDatas[i].levelIndex + 1}");
             }
             else
             {
@@ -25,5 +21,11 @@ public class LoadGameView : ScreenElement
                 loadButtons[i].interactable = false;
             }
         }
+    }
+
+    public void OnLoadButtonClicked(int index)
+    {
+        PlayerDataModel.Data.LevelIndex = LevelDataModel.Data.levelEntityDatas[index].levelIndex;
+        _gameController.ChangeState(GameStates.Game);
     }
 }
